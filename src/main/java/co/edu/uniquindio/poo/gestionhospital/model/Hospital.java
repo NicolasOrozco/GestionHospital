@@ -1,14 +1,14 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
 import java.util.LinkedList;
-
+//FALTA HACER LO DE CREAR REPORTES
 public class Hospital {
 
     public String nombre;
     public LinkedList<Doctor> doctores;
     public LinkedList<Paciente> pacientes;
-    public LinkedList<Cita> citas;
     protected GestorConfiguracion gestorConfiguracion;
+    protected GestorCitas gestorCitas;
 
     /**
      * Constructor público de la clase Hospital
@@ -18,8 +18,8 @@ public class Hospital {
         this.nombre = nombre;
         doctores = new LinkedList<>();
         pacientes = new LinkedList<>();
-        citas = new LinkedList<>();
         this.gestorConfiguracion = gestorConfiguracion.getInstancia();
+        this.gestorCitas = gestorCitas.getInstance();
     }
 
     //---------------------CRUD Paciente-------------------------//
@@ -304,12 +304,8 @@ public class Hospital {
         this.pacientes = pacientes;
     }
 
-    public LinkedList<Cita> getCitas() {
-        return citas;
-    }
-
-    public void setCitas(LinkedList<Cita> citas) {
-        this.citas = citas;
+    public GestorCitas getGestorCitas(){
+        return gestorCitas;
     }
 
     //----------------------------------------------------------//

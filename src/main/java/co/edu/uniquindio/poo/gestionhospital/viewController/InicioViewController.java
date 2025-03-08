@@ -7,9 +7,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import co.edu.uniquindio.poo.gestionhospital.App;
+import co.edu.uniquindio.poo.gestionhospital.model.*;
+import co.edu.uniquindio.poo.gestionhospital.controller.InicioController;
+
+import java.time.LocalDate;
+
 
 public class InicioViewController {
-
+    App app;
     @FXML
     private Button btnCancelarCita;
 
@@ -17,13 +23,13 @@ public class InicioViewController {
     private Button btnEditarPaciente;
 
     @FXML
-    private TableColumn<?, ?> colDoctorCita;
+    private TableColumn<Cita, String> colDoctorCita;
 
     @FXML
     private TextArea txtFacturacion;
 
     @FXML
-    private TableColumn<?, ?> colEspecialidad;
+    private TableColumn<Doctor, String> colEspecialidad;
 
     @FXML
     private Button btnAgregarPaciente;
@@ -32,43 +38,43 @@ public class InicioViewController {
     private Button btnEditarDoctor;
 
     @FXML
-    private TableColumn<?, ?> colEdad;
+    private TableColumn<Paciente, Integer> colEdad;
 
     @FXML
-    private TableView<?> tablaCitas;
+    private TableView<Cita> tablaCitas;
 
     @FXML
     private Button BtnReservarCita;
 
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn<Paciente, String> colNombre;
 
     @FXML
-    private TableColumn<?, ?> colHistorial;
+    private TableColumn<Paciente, String> colHistorial;
 
     @FXML
-    private TableColumn<?, ?> colFechaCita;
+    private TableColumn<Cita, LocalDate> colFechaCita;
 
     @FXML
     private Button bntEliminarPaciente;
 
     @FXML
-    private TableColumn<?, ?> colPacienteCita;
+    private TableColumn<Cita, String> colPacienteCita;
 
     @FXML
     private TextField txtHorario;
 
     @FXML
-    private TableColumn<?, ?> colNombreDoctor;
+    private TableColumn<Cita, String> colNombreDoctor;
 
     @FXML
     private Button btnAgregarDoctor;
 
     @FXML
-    private TableView<?> tablaDoctores;
+    private TableView<Doctor> tablaDoctores;
 
     @FXML
-    private TableView<?> tablaPacientes;
+    private TableView<Paciente> tablaPacientes;
 
     @FXML
     private Button btnEliminarDoctor;
