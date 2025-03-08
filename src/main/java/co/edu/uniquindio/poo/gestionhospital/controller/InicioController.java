@@ -3,6 +3,8 @@ package co.edu.uniquindio.poo.gestionhospital.controller;
 
 import co.edu.uniquindio.poo.gestionhospital.model.*;
 
+import java.time.LocalDate;
+
 public class InicioController {
     Hospital hospital;
     public InicioController(Hospital hospital) {
@@ -32,6 +34,12 @@ public class InicioController {
     }
     public void eliminarDoctor(String id) {
         hospital.eliminarDoctor(id);
+    }
+    public void agendarCita(LocalDate fecha, Paciente paciente, Doctor doctor){
+        hospital.getGestorCitas().agendarCita(fecha,paciente,doctor);
+    }
+    public boolean cancelarCita(Cita cita){
+        return hospital.getGestorCitas().cancelarCita(cita);
     }
 
 
