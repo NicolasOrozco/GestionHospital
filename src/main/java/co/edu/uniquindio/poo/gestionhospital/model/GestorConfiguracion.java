@@ -1,20 +1,26 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
-public class gestorConfiguracion {
+import java.util.HashMap;
 
-    private static gestorConfiguracion instancia;
+public class GestorConfiguracion {
+
+    private static GestorConfiguracion instancia;
     private String horarioAtencion;
     private String maxPacientesPorMedico;
-    private String reglasFacturacion;
+    private HashMap<String, String> reglasFacturacion;
 
     /**
      * Método constructor privado para evitar la instanciación directa
      * fuera de esta clase
      */
-    private gestorConfiguracion() {
+    private GestorConfiguracion() {
         horarioAtencion = "8:00 a 20:00";
         maxPacientesPorMedico = "5";
-        reglasFacturacion = "ni idea que es esto";
+        reglasFacturacion = new HashMap<>();
+
+        reglasFacturacion.put("Método de pago", "Se aceptan tarjetas y efectivo.");
+        reglasFacturacion.put("Descuento", "10% de descuento para jubilados.");
+        reglasFacturacion.put("Multa por cancelación", "20% si cancelas el mismo día.");
     }
 
     /**
@@ -22,9 +28,9 @@ public class gestorConfiguracion {
      * Si la instancia no existe, se crea.
      * @return instancia única del gestor
      */
-    public static gestorConfiguracion getInstancia() {
+    public static GestorConfiguracion getInstancia() {
         if (instancia == null) {
-            instancia = new gestorConfiguracion();
+            instancia = new GestorConfiguracion();
         }
         return instancia;
     }
@@ -35,7 +41,11 @@ public class gestorConfiguracion {
     public void configuracionActual(){
         System.out.println("Horario de atencion: " + horarioAtencion + "\n" +
                            "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
-                           "Reglas de facturacion: " + reglasFacturacion);
+                           "Reglas de facturacion: "+"\n");
+        for (HashMap.Entry<String, String> entry : reglasFacturacion.entrySet()) {
+            System.out.println("- " + entry.getKey() + ": " + entry.getValue());
+        }
+
     }
 
     //--------------Getters y Setters de la clase---------------//
@@ -57,11 +67,12 @@ public class gestorConfiguracion {
         this.maxPacientesPorMedico = maxPacientesPorMedico;
     }
 
-    public String getReglasFacturacion() {
+    public HashMap<String, String> getReglasFacturacion() {
         return reglasFacturacion;
     }
 
-    public void setReglasFacturacion(String reglasFacturacion) {
+    public void setReglasFacturacion(HashMap<String, String> reglasFacturacion) {
         this.reglasFacturacion = reglasFacturacion;
     }
+
 }

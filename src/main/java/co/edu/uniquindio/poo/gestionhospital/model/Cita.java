@@ -1,18 +1,20 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
+import java.time.LocalDate;
+
 public class Cita {
 
-    private String fecha;
+    private LocalDate fecha;
     private Paciente paciente;
     private Doctor doctor;
 
     /**
-     * Método constructor de la clase Cita
+     * Metodo constructor de la clase Cita
      * @param fecha Fecha de la cita
      * @param paciente Paciente que asistirá
      * @param doctor Doctor que atenderá
      */
-    public Cita(String fecha, Paciente paciente, Doctor doctor) {
+    public Cita(LocalDate fecha, Paciente paciente, Doctor doctor) {
         this.fecha = fecha;
         this.paciente = paciente;
         this.doctor = doctor;
@@ -21,11 +23,11 @@ public class Cita {
     //--------------Getters y Setters de la clase---------------//
 
 
-    public String getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

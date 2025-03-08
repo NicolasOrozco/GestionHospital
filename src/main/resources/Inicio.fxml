@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.controller.InicioController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controlador.PrincipalController">
     <top>
         <MenuBar>
             <Menu text="Archivo">
-                <MenuItem onAction="#salir" text="Salir" />
+                <MenuItem text="Salir" onAction="#salir"/>
             </Menu>
             <Menu text="Gestión">
-                <MenuItem onAction="#mostrarPacientes" text="Pacientes" />
-                <MenuItem onAction="#mostrarDoctores" text="Doctores" />
-                <MenuItem onAction="#mostrarCitas" text="Citas" />
+                <MenuItem text="Pacientes" onAction="#mostrarPacientes"/>
+                <MenuItem text="Doctores" onAction="#mostrarDoctores"/>
+                <MenuItem text="Citas" onAction="#mostrarCitas"/>
             </Menu>
             <Menu text="Configuración">
-                <MenuItem onAction="#mostrarConfiguracion" text="Gestor de Configuración" />
+                <MenuItem text="Gestor de Configuración" onAction="#mostrarConfiguracion"/>
             </Menu>
         </MenuBar>
     </top>
@@ -25,19 +24,29 @@
                 <BorderPane>
                     <top>
                         <ToolBar>
-                            <Button fx:id="btnAgregarPaciente" onAction="#agregarPaciente" text="Agregar" />
-                            <Button fx:id="btnEditarPaciente" onAction="#editarPaciente" text="Editar" />
-                            <Button fx:id="bntEliminarPaciente" onAction="#eliminarPaciente" text="Eliminar" />
+                            <Button text="Agregar" onAction="#agregarPaciente"/>
+                            <Button text="Editar" onAction="#editarPaciente"/>
+                            <Button text="Eliminar" onAction="#eliminarPaciente"/>
                         </ToolBar>
                     </top>
                     <center>
-                        <TableView fx:id="tablaPacientes">
-                            <columns>
-                                <TableColumn fx:id="colNombre" text="Nombre" />
-                                <TableColumn fx:id="colEdad" text="Edad" />
-                                <TableColumn fx:id="colHistorial" text="Historial" />
-                            </columns>
-                        </TableView>
+                        <VBox>
+                            <GridPane hgap="10" vgap="10" alignment="CENTER">
+                                <Label text="Nombre:"/>
+                                <TextField fx:id="txtNombrePaciente" GridPane.columnIndex="1"/>
+                                <Label text="Edad:" GridPane.rowIndex="1"/>
+                                <TextField fx:id="txtEdadPaciente" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                                <Label text="Historial:" GridPane.rowIndex="2"/>
+                                <TextField fx:id="txtHistorialPaciente" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                            </GridPane>
+                            <TableView fx:id="tablaPacientes">
+                                <columns>
+                                    <TableColumn text="Nombre" fx:id="colNombre"/>
+                                    <TableColumn text="Edad" fx:id="colEdad"/>
+                                    <TableColumn text="Historial" fx:id="colHistorial"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
                     </center>
                 </BorderPane>
             </Tab>
@@ -45,18 +54,26 @@
                 <BorderPane>
                     <top>
                         <ToolBar>
-                            <Button fx:id="btnAgregarDoctor" onAction="#agregarDoctor" text="Agregar" />
-                            <Button fx:id="btnEditarDoctor" onAction="#editarDoctor" text="Editar" />
-                            <Button fx:id="btnEliminarDoctor" onAction="#eliminarDoctor" text="Eliminar" />
+                            <Button text="Agregar" onAction="#agregarDoctor"/>
+                            <Button text="Editar" onAction="#editarDoctor"/>
+                            <Button text="Eliminar" onAction="#eliminarDoctor"/>
                         </ToolBar>
                     </top>
                     <center>
-                        <TableView fx:id="tablaDoctores">
-                            <columns>
-                                <TableColumn fx:id="colNombreDoctor" text="Nombre" />
-                                <TableColumn fx:id="colEspecialidad" text="Especialidad" />
-                            </columns>
-                        </TableView>
+                        <VBox>
+                            <GridPane hgap="10" vgap="10" alignment="CENTER">
+                                <Label text="Nombre:"/>
+                                <TextField fx:id="txtNombreDoctor" GridPane.columnIndex="1"/>
+                                <Label text="Especialidad:" GridPane.rowIndex="1"/>
+                                <TextField fx:id="txtEspecialidadDoctor" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                            </GridPane>
+                            <TableView fx:id="tablaDoctores">
+                                <columns>
+                                    <TableColumn text="Nombre" fx:id="colNombreDoctor"/>
+                                    <TableColumn text="Especialidad" fx:id="colEspecialidad"/>
+                                </columns>
+                            </TableView>
+                        </VBox>
                     </center>
                 </BorderPane>
             </Tab>
@@ -64,40 +81,30 @@
                 <BorderPane>
                     <top>
                         <ToolBar>
-                            <Button id="bntReservar" fx:id="BtnReservarCita" onAction="#reservarCita" text="Reservar" />
-                            <Button id="btnCancelar" fx:id="btnCancelarCita" onAction="#cancelarCita" text="Cancelar" />
+                            <Button text="Reservar" onAction="#reservarCita"/>
+                            <Button text="Cancelar" onAction="#cancelarCita"/>
                         </ToolBar>
                     </top>
                     <center>
                         <TableView fx:id="tablaCitas">
                             <columns>
-                                <TableColumn id="tbcPacienteCita" fx:id="colPacienteCita" text="Paciente" />
-                                <TableColumn id="tbcDoctorCita" fx:id="colDoctorCita" text="Doctor" />
-                                <TableColumn id="tbcFechaCita" fx:id="colFechaCita" text="Fecha" />
+                                <TableColumn text="Paciente" fx:id="colPacienteCita"/>
+                                <TableColumn text="Doctor" fx:id="colDoctorCita"/>
+                                <TableColumn text="Fecha" fx:id="colFechaCita"/>
                             </columns>
                         </TableView>
                     </center>
                 </BorderPane>
             </Tab>
             <Tab text="Configuración">
-                <GridPane alignment="CENTER" hgap="10" vgap="10">
-                    <Label text="Horario de Atención:" />
-                    <TextField id="txfHorarioAtencion" fx:id="txtHorario" GridPane.columnIndex="1" />
-                    <Label text="Máx. Pacientes por Médico:" GridPane.rowIndex="1" />
-                    <TextField id="txfMaxPacientesPorMedico" fx:id="txtMaxPacientes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <Label text="Reglas de Facturación:" GridPane.rowIndex="2" />
-                    <TextArea id="txfReglasFacturacion" fx:id="txtFacturacion" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <Button id="bntGuardar" onAction="#guardarConfiguracion" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                <GridPane hgap="10" vgap="10" alignment="CENTER">
+                    <Label text="Horario de Atención:"/>
+                    <TextField fx:id="txtHorario" GridPane.columnIndex="1"/>
+                    <Label text="Máx. Pacientes por Médico:" GridPane.rowIndex="1"/>
+                    <TextField fx:id="txtMaxPacientes" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Reglas de Facturación:" GridPane.rowIndex="2"/>
+                    <TextArea fx:id="txtFacturacion" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Button text="Guardar" onAction="#guardarConfiguracion" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
                 </GridPane>
             </Tab>
         </TabPane>
