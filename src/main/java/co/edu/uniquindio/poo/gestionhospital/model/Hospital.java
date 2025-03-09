@@ -2,6 +2,8 @@ package co.edu.uniquindio.poo.gestionhospital.model;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 //FALTA HACER LO DE CREAR REPORTES
 public class Hospital {
 
@@ -190,6 +192,29 @@ public class Hospital {
 
     //-------------------------Reporte--------------------------//
 
+
+    public Reporte buscarReporte(LocalDate fechaConsulta, String idPaciente) {
+
+        if(fechaConsulta == null || i)
+
+        Paciente pacienteActual = buscarPaciente(idPaciente);
+        Reporte reporteEncontrado = null;
+
+        for(Reporte reporte : pacienteActual.getHistorial()){
+            if(reporte.getFechaConsulta().equals(fechaConsulta)){
+                reporteEncontrado = reporte;
+            }
+        }
+
+        if(reporteEncontrado == null){
+            throw  new NoSuchElementException("No existe un reporte con la información ingresada")
+            // MUAAAAAAKKKKKKKKKK<33333!!!!!!SNHIWIWHKWAKALDKLMWHA<3
+        }
+        //tamo y si se suspende???YOMASSSSSSSSSSSSSSSSSSSS
+
+
+
+    }
 
     public void agregarReporteAHistorial(Reporte reporte, String idPaciente) {
         Paciente paciente = buscarPaciente(idPaciente);

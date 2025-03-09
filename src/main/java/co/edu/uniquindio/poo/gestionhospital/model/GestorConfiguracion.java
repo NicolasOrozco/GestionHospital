@@ -35,19 +35,12 @@ public class GestorConfiguracion {
         return instancia;
     }
 
+
     /**
-     * Método que devuelve una String con la configuración actual
+     *
+     *
+     * @return
      */
-    public void configuracionActual(){
-        System.out.println("Horario de atencion: " + horarioAtencion + "\n" +
-                           "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
-                           "Reglas de facturacion: "+"\n");
-        for (String regla : reglasFacturacion) {
-            System.out.println("- " + regla);
-        }
-
-    }
-
     public String configuracionActualString(){
         StringBuilder configuracion = new StringBuilder("Horario de atencion: " + horarioAtencion + "\n" +
                 "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
