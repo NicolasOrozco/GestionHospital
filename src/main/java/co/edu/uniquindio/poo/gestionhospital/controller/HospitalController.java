@@ -5,10 +5,10 @@ import co.edu.uniquindio.poo.gestionhospital.model.*;
 
 import java.time.LocalDate;
 
-public class InicioController {
+public class HospitalController {
     Hospital hospital;
 
-    public InicioController(Hospital hospital) {
+    public HospitalController(Hospital hospital) {
         this.hospital = hospital;
     }
     public Paciente buscarPaciente(String id) {

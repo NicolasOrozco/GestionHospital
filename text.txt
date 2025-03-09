@@ -1,0 +1,37 @@
+
+
+
+//=====================PACIENTES=====================//
+
+    public Paciente buildPaciente() {
+        return new Paciente(txtPacienteNombre.getText(), txtPacienteId.getText(), dateNacimientoPaciente.getValue());
+    }
+
+    @FXML
+    void agregarPaciente(ActionEvent event) {
+        Paciente paciente = buildPaciente();
+        hospitalController.agregarPaciente(paciente);
+    }
+
+    @FXML
+    void editarPaciente(ActionEvent event) {
+        Paciente actualizado = buildPaciente();
+        //inicioController.actualizarPaciente(seleccionado.getid?, actualizado);
+    }
+
+
+
+//=====================OTRO=====================//
+    public LinkedList<String> convertirStringALista(String texto) {
+
+        LinkedList<String> listaStrings = new LinkedList<>();
+
+        if (texto != null && !texto.isEmpty()) {
+            String[] textoArray = texto.split(";");
+            //se añaden las listas a la LinkedList
+            for (String s : textoArray) {
+                listaStrings.add(s.trim());//trim es para eliminar espacios en blancos
+            }
+        }
+        return listaStrings;
+    }
