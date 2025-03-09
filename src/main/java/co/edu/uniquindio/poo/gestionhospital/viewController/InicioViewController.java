@@ -1,151 +1,123 @@
 package co.edu.uniquindio.poo.gestionhospital.viewController;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import co.edu.uniquindio.poo.gestionhospital.controller.InicioController;
+import co.edu.uniquindio.poo.gestionhospital.model.Paciente;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import co.edu.uniquindio.poo.gestionhospital.model.*;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import co.edu.uniquindio.poo.gestionhospital.App;
+import javafx.event.ActionEvent;
+
 
 public class InicioViewController {
 
-    @FXML
-    private ResourceBundle resources;
+    App app;
+    private InicioController inicioController;
 
-    @FXML
-    private URL location;
+    // Pacientes
+    @FXML private Button btnAgregarPaciente;
+    @FXML private Button btnEditarPaciente;
+    @FXML private Button btnEliminarPaciente;
+    @FXML private Button btnVerCitasPaciente;
+    @FXML private Button btnVerHistorialPaciente;
+    @FXML private TextField txtPacienteNombre;
+    @FXML private TextField txtPacienteId;
+    @FXML private DatePicker datePickerPacienteNacimiento;
+    @FXML private TableView<?> tablaPacientes;
+    @FXML private TableColumn<?, ?> colPacienteId;
+    @FXML private TableColumn<?, ?> colPacienteNombre;
+    @FXML private TableColumn<?, ?> colPacienteEdad;
 
-    @FXML
-    private TableColumn<?, ?> colDoctorCita;
+    // Doctores
+    @FXML private Button btnAgregarDoctor;
+    @FXML private Button btnEditarDoctor;
+    @FXML private Button btnEliminarDoctor;
+    @FXML private TextField txtDoctorNombre;
+    @FXML private TextField txtDoctorId;
+    @FXML private TextField txtDoctorEspecialidad;
+    @FXML private TableView<?> tablaDoctores;
+    @FXML private TableColumn<?, ?> colDoctorId;
+    @FXML private TableColumn<?, ?> colDoctorNombre;
+    @FXML private TableColumn<?, ?> colDoctorEspecialidad;
 
-    @FXML
-    private TableColumn<?, ?> colDoctorCita1;
+    // Citas
+    @FXML private Button btnAgendarCita;
+    @FXML private Button btnCancelarCita;
+    @FXML private DatePicker datePickerCita;
+    @FXML private TextField txtCitaPacienteId;
+    @FXML private ComboBox<?> comboBoxCitaDoctor;
+    @FXML private TableView<?> tablaCitas;
+    @FXML private TableColumn<?, ?> colFechaCita;
+    @FXML private TableColumn<?, ?> colIdPacienteCita;
+    @FXML private TableColumn<?, ?> colNombrePacienteCita;
+    @FXML private TableColumn<?, ?> colDoctorCita;
 
-    @FXML
-    private TableColumn<?, ?> colEdadPaciente;
+    // Reportes
+    @FXML private Button btnAgregarReporte;
+    @FXML private Button btnEliminarReporte;
+    @FXML private Button btnVerDetallesReporte;
+    @FXML private Button btnClonarReporte;
+    @FXML private DatePicker datePickerReporteConsulta;
+    @FXML private TextField txtPacienteReporte;
+    @FXML private ComboBox<?> comboBoxReporteDoctor;
+    @FXML private TableView<?> tablaReportes;
+    @FXML private TableColumn<?, ?> colReporteFecha;
+    @FXML private TableColumn<?, ?> colReportePacienteId;
+    @FXML private TableColumn<?, ?> colReportePacienteNombre;
+    @FXML private TableColumn<?, ?> colReporteDoctor;
 
-    @FXML
-    private TableColumn<?, ?> colEspecialidad;
+    // Configuración
+    @FXML private TextField txtHorarioAtencion;
+    @FXML private TextField txtMaxPacientes;
+    @FXML private TextArea txtReglasFacturacion;
+    @FXML private Button btnGuardarConfiguracion;
+    @FXML private Text txtInfoHospital;
 
-    @FXML
-    private TableColumn<?, ?> colFechaCita;
-
-    @FXML
-    private TableColumn<?, ?> colFechaCita11;
-
-    @FXML
-    private TableColumn<?, ?> colFechaCita111;
-
-    @FXML
-    private TableColumn<?, ?> colIdDoctor;
-
-    @FXML
-    private TableColumn<?, ?> colIdPaciente;
-
-    @FXML
-    private TableColumn<?, ?> colIdPacienteCita;
-
-    @FXML
-    private TableColumn<?, ?> colNombreDoctor;
-
-    @FXML
-    private TableColumn<?, ?> colNombrePaciente;
-
-    @FXML
-    private TableColumn<?, ?> colNombrePacienteCita;
-
-    @FXML
-    private TableColumn<?, ?> colPacienteCita1;
-
-    @FXML
-    private ComboBox<?> comboDoctorCita;
-
-    @FXML
-    private DatePicker dateNacimientoPaciente;
-
-    @FXML
-    private TableView<?> tablaCitas;
-
-    @FXML
-    private TableView<?> tablaCitas1;
-
-    @FXML
-    private TableView<?> tablaDoctores;
-
-    @FXML
-    private TableView<?> tablaPacientes;
-
-    @FXML
-    private TextField txtEdadPaciente;
-
-    @FXML
-    private TextField txtEdadPaciente11;
-
-    @FXML
-    private TextField txtEspecialidad;
-
-    @FXML
-    private TextArea txtFacturacion;
-
-    @FXML
-    private TextField txtHorario;
-
-    @FXML
-    private TextField txtIdDoctor;
-
-    @FXML
-    private TextField txtIdPacienteCita;
-
-    @FXML
-    private Text txtInfoHospital;
-
-    @FXML
-    private TextField txtMaxPacientes;
-
-    @FXML
-    private TextField txtNombreDoctor;
-
-    @FXML
-    private TextField txtNombrePaciente;
-
-    @FXML
-    void agendarCita(ActionEvent event) {
-
-    }
-
-    @FXML
-    void agregarDoctor(ActionEvent event) {
-
+    //=====================PACIENTES=====================//
+    public Paciente buildPaciente() {
+        return new Paciente(txtPacienteNombre.getText(), txtPacienteId.getText(), dateNacimientoPaciente.getValue());
     }
 
     @FXML
     void agregarPaciente(ActionEvent event) {
+        Paciente paciente = buildPaciente();
+        inicioController.agregarPaciente(paciente);
+    }
+
+    @FXML
+    void editarPaciente(ActionEvent event) {
+
 
     }
 
     @FXML
-    void agregarReporte(ActionEvent event) {
+    void eliminarPaciente(ActionEvent event) {
+
+    }
+    @FXML
+    void verCitasPaciente(ActionEvent event) {
 
     }
 
     @FXML
-    void cancelarCi(ActionEvent event) {
+    void verHistorialPaciente(ActionEvent event) {
+
 
     }
 
-    @FXML
-    void cancelarCita(ActionEvent event) {
-
-    }
+    //=====================DOCTOR=====================//
 
     @FXML
-    void dateCita(ActionEvent event) {
+    void agregarDoctor(ActionEvent event) {
 
     }
 
@@ -155,69 +127,66 @@ public class InicioViewController {
     }
 
     @FXML
-    void editarPaciente(ActionEvent event) {
-
-    }
-
-    @FXML
     void eliminarDoctor(ActionEvent event) {
 
     }
 
+    //=====================CITA=====================//
+
     @FXML
-    void eliminarPaciente(ActionEvent event) {
+    void dateCita(ActionEvent event) {
 
     }
 
+    @FXML
+    void agendarCita(ActionEvent event) {
+
+    }
+
+    @FXML
+    void cancelarCita(ActionEvent event) {
+
+    }
+
+    //=====================REPORTES=====================//
+
+    @FXML
+    void onVerDetallesReporte(ActionEvent event) {
+
+    }
+
+    @FXML
+    void agregarReporte(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEliminarReporte(ActionEvent event) {
+
+    }
+    //=====================CONFIGURACION=====================//
     @FXML
     void guardarConfiguracion(ActionEvent event) {
 
     }
 
-    @FXML
-    void verCitasPaciente(ActionEvent event) {
+    //=====================OTRO=====================//
+    public LinkedList<String> convertirStringALista(String texto) {
 
+        LinkedList<String> listaStrings = new LinkedList<>();
+
+        if (texto != null && !texto.isEmpty()) {
+            String[] textoArray = texto.split(";");
+            //se añaden las listas a la LinkedList
+            for (String s : textoArray) {
+                listaStrings.add(s.trim());//trim es para eliminar espacios en blancos
+            }
+        }
+        return listaStrings;
     }
 
-    @FXML
-    void verHistorialPaciente(ActionEvent event) {
-
-    }
-
-    @FXML
-    void initialize() {
-        assert colDoctorCita != null : "fx:id=\"colDoctorCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colDoctorCita1 != null : "fx:id=\"colDoctorCita1\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colEdadPaciente != null : "fx:id=\"colEdadPaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colEspecialidad != null : "fx:id=\"colEspecialidad\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colFechaCita != null : "fx:id=\"colFechaCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colFechaCita11 != null : "fx:id=\"colFechaCita11\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colFechaCita111 != null : "fx:id=\"colFechaCita111\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colIdDoctor != null : "fx:id=\"colIdDoctor\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colIdPaciente != null : "fx:id=\"colIdPaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colIdPacienteCita != null : "fx:id=\"colIdPacienteCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colNombreDoctor != null : "fx:id=\"colNombreDoctor\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colNombrePaciente != null : "fx:id=\"colNombrePaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colNombrePacienteCita != null : "fx:id=\"colNombrePacienteCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert colPacienteCita1 != null : "fx:id=\"colPacienteCita1\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert comboDoctorCita != null : "fx:id=\"comboDoctorCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert dateNacimientoPaciente != null : "fx:id=\"dateNacimientoPaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert tablaCitas != null : "fx:id=\"tablaCitas\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert tablaCitas1 != null : "fx:id=\"tablaCitas1\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert tablaDoctores != null : "fx:id=\"tablaDoctores\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert tablaPacientes != null : "fx:id=\"tablaPacientes\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtEdadPaciente != null : "fx:id=\"txtEdadPaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtEdadPaciente11 != null : "fx:id=\"txtEdadPaciente11\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtEspecialidad != null : "fx:id=\"txtEspecialidad\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtFacturacion != null : "fx:id=\"txtFacturacion\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtHorario != null : "fx:id=\"txtHorario\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtIdDoctor != null : "fx:id=\"txtIdDoctor\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtIdPacienteCita != null : "fx:id=\"txtIdPacienteCita\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtInfoHospital != null : "fx:id=\"txtInfoHospital\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtMaxPacientes != null : "fx:id=\"txtMaxPacientes\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtNombreDoctor != null : "fx:id=\"txtNombreDoctor\" was not injected: check your FXML file 'Inicio.fxml'.";
-        assert txtNombrePaciente != null : "fx:id=\"txtNombrePaciente\" was not injected: check your FXML file 'Inicio.fxml'.";
-
+    public void setApp(App app){
+            this.app = app;
     }
 
 }

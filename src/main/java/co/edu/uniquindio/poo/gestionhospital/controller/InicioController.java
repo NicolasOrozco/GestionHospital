@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public class InicioController {
     Hospital hospital;
+
     public InicioController(Hospital hospital) {
         this.hospital = hospital;
     }

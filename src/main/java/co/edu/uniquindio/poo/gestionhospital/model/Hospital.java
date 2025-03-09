@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 //FALTA HACER LO DE CREAR REPORTES
 public class Hospital {
@@ -184,6 +185,28 @@ public class Hospital {
         } else {
             System.out.println("No existe un doctor con el id ingresado.");
         }
+    }
+    //----------------------------------------------------------//
+
+    //-------------------------Reporte--------------------------//
+
+
+    public void agregarReporteAHistorial(Reporte reporte, String idPaciente) {
+        Paciente paciente = buscarPaciente(idPaciente);
+        if(paciente == null && reporte == null) {
+            throw new IllegalArgumentException("No se ingresó el paciente o el reporte");
+        }
+        paciente.getHistorial().add(reporte);
+    }
+
+
+    public void eliminarReporteDelHistorial(Reporte reporte, String idPaciente) {
+        Paciente paciente = buscarPaciente(idPaciente);
+        if (paciente == null && reporte == null) {
+            throw new IllegalArgumentException("No se encontro el reporte o al paciente");
+        }
+        paciente.getHistorial().remove(reporte);
+
     }
 
     //----------------------------------------------------------//

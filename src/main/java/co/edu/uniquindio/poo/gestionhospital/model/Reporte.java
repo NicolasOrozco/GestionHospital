@@ -21,6 +21,8 @@ public class Reporte implements Cloneable{
         this.medicamentos = new LinkedList<>(medicamentos);
     }
 
+
+
     public Reporte clone() {
         try {
             Reporte copia = (Reporte) super.clone();
