@@ -1,26 +1,26 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
-import java.util.HashMap;
+import java.util.LinkedList;
 
 public class GestorConfiguracion {
 
     private static GestorConfiguracion instancia;
     private String horarioAtencion;
     private String maxPacientesPorMedico;
-    private HashMap<String, String> reglasFacturacion;
+    private LinkedList<String> reglasFacturacion;
 
     /**
-     * Método constructor privado para evitar la instanciación directa
-     * fuera de esta clase
+     * Método constructor privado para evitar la instanciación directa fuera de esta clase
+     *
      */
     private GestorConfiguracion() {
         horarioAtencion = "8:00 a 20:00";
         maxPacientesPorMedico = "5";
-        reglasFacturacion = new HashMap<>();
+        reglasFacturacion = new LinkedList<>();
 
-        reglasFacturacion.put("Método de pago", "Se aceptan tarjetas y efectivo.");
-        reglasFacturacion.put("Descuento", "10% de descuento para jubilados.");
-        reglasFacturacion.put("Multa por cancelación", "20% si cancelas el mismo día.");
+        reglasFacturacion.add("Se aceptan tarjetas y efectivo.");
+        reglasFacturacion.add("10% de descuento para jubilados.");
+        reglasFacturacion.add("20% si cancelas el mismo día.");
     }
 
     /**
@@ -36,16 +36,28 @@ public class GestorConfiguracion {
     }
 
     /**
-     * Método que muestra la configuración actual
+     * Método que devuelve una String con la configuración actual
      */
     public void configuracionActual(){
         System.out.println("Horario de atencion: " + horarioAtencion + "\n" +
                            "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
                            "Reglas de facturacion: "+"\n");
-        for (HashMap.Entry<String, String> entry : reglasFacturacion.entrySet()) {
-            System.out.println("- " + entry.getKey() + ": " + entry.getValue());
+        for (String regla : reglasFacturacion) {
+            System.out.println("- " + regla);
         }
 
+    }
+
+    public String configuracionActualString(){
+        StringBuilder configuracion = new StringBuilder("Horario de atencion: " + horarioAtencion + "\n" +
+                "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
+                "Reglas de facturacion: " + "\n");
+
+        for (String regla : reglasFacturacion) {
+            configuracion.append("- ").append(regla).append("\n");
+        }
+
+        return configuracion.toString();
     }
 
     //--------------Getters y Setters de la clase---------------//
@@ -67,11 +79,11 @@ public class GestorConfiguracion {
         this.maxPacientesPorMedico = maxPacientesPorMedico;
     }
 
-    public HashMap<String, String> getReglasFacturacion() {
+    public LinkedList<String> getReglasFacturacion() {
         return reglasFacturacion;
     }
 
-    public void setReglasFacturacion(HashMap<String, String> reglasFacturacion) {
+    public void setReglasFacturacion(LinkedList<String> reglasFacturacion) {
         this.reglasFacturacion = reglasFacturacion;
     }
 

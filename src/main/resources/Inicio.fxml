@@ -18,8 +18,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PrincipalController">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.viewController.InicioViewController">
     <center>
         <TabPane>
             <Tab text="Pacientes">
@@ -36,7 +37,7 @@
                                 <Label text="ID:" GridPane.rowIndex="1" />
                                 <TextField fx:id="txtEdadPaciente" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label text="Fecha Nacimiento: " GridPane.rowIndex="2" />
-                        <DatePicker prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="dateNacimientoPaciente" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <columnConstraints>
                            <ColumnConstraints />
                            <ColumnConstraints />
@@ -49,9 +50,9 @@
                             </GridPane>
                             <TableView fx:id="tablaPacientes">
                                 <columns>
-                                    <TableColumn fx:id="colNombre" prefWidth="90.39996182918549" text="Nombre" />
-                                    <TableColumn fx:id="colEdad" prefWidth="130.40003204345703" text="Edad" />
-                                    <TableColumn fx:id="colHistorial" prefWidth="141.60003662109375" text="ID" />
+                                    <TableColumn fx:id="colIdPaciente" prefWidth="151.19997560977936" text="ID" />
+                                    <TableColumn fx:id="colNombrePaciente" prefWidth="279.20001220703125" text="Nombre" />
+                                    <TableColumn fx:id="colEdadPaciente" prefWidth="60.79998779296875" text="Edad" />
                                 </columns>
                             </TableView>
                         </VBox>
@@ -59,12 +60,15 @@
                <bottom>
                   <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <items>
-                        <Button onAction="#eliminarPaciente" text="Ver Citas del Paciente" />
-                        <Button onAction="#eliminarPaciente" text="Ver Historial del Paciente" />
+                        <Button onAction="#verCitasPaciente" text="Ver Citas del Paciente" />
+                        <Button onAction="#verHistorialPaciente" text="Ver Historial del Paciente" />
                                <Button onAction="#eliminarPaciente" text="Eliminar" />
                     </items>
                   </ToolBar>
                </bottom>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
                 </BorderPane>
             </Tab>
             <Tab text="Doctores">
@@ -90,19 +94,23 @@
                         </rowConstraints>
                         <children>
                            <Label text="Nombre:" />
-                           <TextField fx:id="txtNombrePaciente1" GridPane.columnIndex="1" />
+                           <TextField fx:id="txtNombreDoctor" GridPane.columnIndex="1" />
                            <Label text="ID:" GridPane.rowIndex="1" />
-                           <TextField fx:id="txtEdadPaciente2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           <TextField fx:id="txtIdDoctor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            <Label prefHeight="18.0" prefWidth="79.0" text="Especialidad: " GridPane.rowIndex="2" />
-                           <TextField fx:id="txtHistorialPaciente1" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <TextField fx:id="txtEspecialidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         </children>
                      </GridPane>
                             <TableView fx:id="tablaDoctores">
                                 <columns>
-                                    <TableColumn fx:id="colNombreDoctor" text="Nombre" />
-                                    <TableColumn fx:id="colEspecialidad" text="Especialidad" />
+                           <TableColumn fx:id="colIdDoctor" prefWidth="169.60003662109375" text="ID" />
+                                    <TableColumn fx:id="colNombreDoctor" prefWidth="192.79998779296875" text="Nombre" />
+                                    <TableColumn fx:id="colEspecialidad" prefWidth="192.00003051757812" text="Especialidad" />
                                 </columns>
                             </TableView>
+                     <BorderPane.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
                         </VBox>
                     </center>
                 </BorderPane>
@@ -111,7 +119,7 @@
                 <BorderPane>
                     <top>
                         <ToolBar>
-                            <Button onAction="#reservarCita" text="Agendar Cita" />
+                            <Button onAction="#agendarCita" text="Agendar Cita" />
                             <Button onAction="#cancelarCita" text="Cancelar Cita" />
                         </ToolBar>
                     </top>
@@ -121,11 +129,11 @@
                         <GridPane alignment="CENTER" hgap="10" prefHeight="120.0" prefWidth="634.0" vgap="10" VBox.vgrow="ALWAYS">
                            <children>
                               <Label text="Fecha:" />
-                              <DatePicker prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" />
+                              <DatePicker onAction="#dateCita" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" />
                               <Label prefWidth="86.0" text="ID del Paciente:" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtEdadPaciente1" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="txtIdPacienteCita" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Doctor:" GridPane.rowIndex="2" />
-                              <ComboBox prefHeight="10.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="comboDoctorCita" prefHeight="10.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints />
@@ -139,35 +147,19 @@
                         </GridPane>
                               <TableView fx:id="tablaCitas">
                                   <columns>
-                                      <TableColumn fx:id="colPacienteCita" prefWidth="155.19995725154877" text="Fecha" />
-                                      <TableColumn fx:id="colFechaCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="ID Paciente" />
-                              <TableColumn fx:id="colFechaCita1" minWidth="9.5999755859375" prefWidth="171.199951171875" text="Nombre del Paciente" />
+                                      <TableColumn fx:id="colFechaCita" prefWidth="155.19995725154877" text="Fecha" />
+                                      <TableColumn fx:id="colIdPacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="ID Paciente" />
+                              <TableColumn fx:id="colNombrePacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="Nombre del Paciente" />
                                       <TableColumn fx:id="colDoctorCita" minWidth="4.79998779296875" prefWidth="152.800048828125" text="Doctor" />
                                   </columns>
                               </TableView>
                      </children>
                   </VBox>
                </center>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
                 </BorderPane>
-            </Tab>
-            <Tab text="Configuración">
-                <content>
-                    <VBox alignment="CENTER" prefWidth="612.0" spacing="10">
-                        <Label text="Horario de Atención:" />
-                        <TextField fx:id="txtHorario" prefWidth="598.0" />
-
-                        <Label text="Máx. Pacientes por Médico:" />
-                        <TextField fx:id="txtMaxPacientes" />
-
-                        <Label text="Reglas de Facturación:" />
-                        <TextArea fx:id="txtFacturacion" />
-
-                        <Button onAction="#guardarConfiguracion" text="Guardar" />
-                  <padding>
-                     <Insets left="20.0" right="20.0" />
-                  </padding>
-                    </VBox>
-                </content>
             </Tab>
             <Tab text="Reportes">
             <content>
@@ -175,8 +167,8 @@
                   <top>
                      <ToolBar>
                         <items>
-                           <Button onAction="#reservarCita" text="Agregar Reporte" />
-                           <Button onAction="#cancelarCita" text="Cancelar Cita" />
+                           <Button onAction="#agregarReporte" text="Agregar Reporte" />
+                           <Button onAction="#cancelarCi" text="Cancelar Cita" />
                         </items>
                      </ToolBar>
                   </top>
@@ -220,9 +212,65 @@
                        </items>
                      </ToolBar>
                   </bottom>
+                  <padding>
+                     <Insets left="10.0" right="10.0" top="10.0" />
+                  </padding>
                </BorderPane>
             </content>
          </Tab>
+            <Tab text="Configuración">
+                <BorderPane>
+                    <center>
+                        <GridPane alignment="CENTER" prefHeight="551.0" prefWidth="208.0">
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="64.0" />
+                                <ColumnConstraints percentWidth="36.0" />
+                            </columnConstraints>
+
+                            <rowConstraints>
+                                <RowConstraints percentHeight="100" />
+                            </rowConstraints>
+
+                            <VBox spacing="10.0" GridPane.columnIndex="1">
+                        <Label text="Editor de Configuración">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                                <Label text="Horario de Atención:" />
+                                <TextField fx:id="txtHorario" />
+                                <Label text="Máx. Pacientes por Médico:" />
+                                <TextField fx:id="txtMaxPacientes" prefHeight="26.0" prefWidth="51.0" />
+                                <Label text="Reglas de Facturación:" />
+                                <TextArea fx:id="txtFacturacion" text="separe cada regla con un punto y coma" wrapText="true" />
+                                <Button onAction="#guardarConfiguracion" text="Guardar" />
+                                <GridPane.margin>
+                                    <Insets />
+                                </GridPane.margin>
+                        <padding>
+                           <Insets left="10.0" right="10.0" top="20.0" />
+                        </padding>
+                            </VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                           <Label text="Informacion del Hospital">
+                              <font>
+                                 <Font name="Century Gothic" size="24.0" />
+                              </font>
+                           </Label>
+                           <Text fx:id="txtInfoHospital" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="386.9367198944092" />
+                        </children>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                        </padding>
+                     </VBox>
+                        </GridPane>
+                    </center>
+               <padding>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </padding>
+                </BorderPane>
+            </Tab>
         </TabPane>
     </center>
    <top>
