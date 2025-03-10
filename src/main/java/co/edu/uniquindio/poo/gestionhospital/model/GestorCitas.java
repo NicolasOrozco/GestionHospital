@@ -21,6 +21,8 @@ public class GestorCitas {
     public void agendarCita(LocalDate fecha, Paciente paciente, Doctor doctor) {
         Cita nuevaCita = new Cita(fecha, paciente, doctor);
         citas.add(nuevaCita);
+        paciente.getCitas().add(nuevaCita);
+        doctor.getCitas().add(nuevaCita);
     }
 
     public boolean cancelarCita(Cita cita) {

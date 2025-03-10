@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-//FALTA HACER LO DE CREAR REPORTES
 public class Hospital {
 
     public String nombre;
@@ -192,30 +191,33 @@ public class Hospital {
 
     //-------------------------Reporte--------------------------//
 
-
+    /**
+     * Método para buscar un reporte dada la fecha y el Id del paciente asociado
+     * @param fechaConsulta Fecha en que se generó el reporte
+     * @param idPaciente Id del paciente asociado al reporte
+     * @return Reporte encontrado
+     */
     public Reporte buscarReporte(LocalDate fechaConsulta, String idPaciente) {
-
-        if(fechaConsulta == null || i)
+        if (fechaConsulta == null || idPaciente == null) {
+            throw new IllegalArgumentException("No se ingresaron datos para la búsqueda.");
+        }
 
         Paciente pacienteActual = buscarPaciente(idPaciente);
-        Reporte reporteEncontrado = null;
 
-        for(Reporte reporte : pacienteActual.getHistorial()){
-            if(reporte.getFechaConsulta().equals(fechaConsulta)){
-                reporteEncontrado = reporte;
+        for (Reporte reporte : pacienteActual.getHistorial()) {
+            if (reporte.getFechaConsulta().equals(fechaConsulta)) {
+                return reporte; // Retorna inmediatamente si encuentra el reporte
             }
         }
 
-        if(reporteEncontrado == null){
-            throw  new NoSuchElementException("No existe un reporte con la información ingresada")
-            // MUAAAAAAKKKKKKKKKK<33333!!!!!!SNHIWIWHKWAKALDKLMWHA<3
-        }
-        //tamo y si se suspende???YOMASSSSSSSSSSSSSSSSSSSS
-
-
-
+        throw new NoSuchElementException("No existe un reporte con la información ingresada.");
     }
 
+    /**
+     * Método para agregar un reporte al historial de un paciente
+     * @param reporte Reporte a añadir
+     * @param idPaciente Id del paciente a quien va dirigido
+     */
     public void agregarReporteAHistorial(Reporte reporte, String idPaciente) {
         Paciente paciente = buscarPaciente(idPaciente);
         if(paciente == null && reporte == null) {
@@ -224,13 +226,19 @@ public class Hospital {
         paciente.getHistorial().add(reporte);
     }
 
-
-    public void eliminarReporteDelHistorial(Reporte reporte, String idPaciente) {
-        Paciente paciente = buscarPaciente(idPaciente);
-        if (paciente == null && reporte == null) {
-            throw new IllegalArgumentException("No se encontro el reporte o al paciente");
+    /**
+     * Método para eliminar un reporte del historial de un paciente
+     * dada la fecha del reporte y el id del paciente asociado
+     * @param fechaConsulta Fecha en que se generó el reporte
+     * @param idPaciente Id del paciente asociado al reporte@param fechaConsulta
+     */
+    public void eliminarReporteDelHistorial(LocalDate fechaConsulta, String idPaciente) {
+        if (fechaConsulta == null || idPaciente == null) {
+            throw new IllegalArgumentException("No se ingresaron datos para la búsqueda.");
         }
-        paciente.getHistorial().remove(reporte);
+
+        Reporte reporte = buscarReporte(fechaConsulta, idPaciente);
+        reporte.getPaciente().getHistorial().remove(reporte);
 
     }
 
@@ -355,6 +363,8 @@ public class Hospital {
     public GestorCitas getGestorCitas(){
         return gestorCitas;
     }
+
+    public GestorConfiguracion getGestorConfiguracion(){ return gestorConfiguracion; }
 
     //----------------------------------------------------------//
 

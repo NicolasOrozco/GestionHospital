@@ -41,11 +41,53 @@ public class Reporte implements Cloneable{
         }
     }
 
+    //-----------------Getters y Setters----------------------//
+
     public LocalDate getFechaConsulta() {
         return fechaConsulta;
     }
 
     public void setFechaConsulta(LocalDate fechaConsulta) {
         this.fechaConsulta = fechaConsulta;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public int getEdadPacienteEnConsulta() {
+        return edadPacienteEnConsulta;
+    }
+
+    public void setEdadPacienteEnConsulta(int edadPacienteEnConsulta) {
+        this.edadPacienteEnConsulta = edadPacienteEnConsulta;
+    }
+
+    public LinkedList<String> getEnfermedades() {
+        return enfermedades;
+    }
+
+    public void setEnfermedades(LinkedList<String> enfermedades) {
+        this.enfermedades = enfermedades;
+    }
+
+    public LinkedList<String> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public void setMedicamentos(LinkedList<String> medicamentos) {
+        this.medicamentos = medicamentos;
     }
 }
