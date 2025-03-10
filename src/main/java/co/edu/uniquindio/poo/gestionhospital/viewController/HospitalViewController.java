@@ -8,17 +8,13 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.poo.gestionhospital.controller.HospitalController;
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import co.edu.uniquindio.poo.gestionhospital.App;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import co.edu.uniquindio.poo.gestionhospital.app.App;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,7 +30,6 @@ public class HospitalViewController {
     private Paciente selectedPaciente;
     private Cita selectedCita;
 
-
     public App app;
     public HospitalController hospitalController;
 
@@ -44,128 +39,212 @@ public class HospitalViewController {
     @FXML
     private URL location;
 
-    @FXML
-    private TableColumn<Cita, String> colDoctorCita;
 
-    @FXML
-    private TableColumn<Doctor, String> colDoctorEspecialidad;
-
-    @FXML
-    private TableColumn<Doctor, String> colDoctorId;
-
-    @FXML
-    private TableColumn<Doctor, String> colDoctorNombre;
-
-    @FXML
-    private TableColumn<Cita, LocalDate> colFechaCita;
-
-    @FXML
-    private TableColumn<Cita, String> colIdPacienteCita;
-
-    @FXML
-    private TableColumn<Cita, String> colNombrePacienteCita;
-
+    //==========================PACIENTE==========================//
     @FXML
     private TableColumn<Paciente, Integer> colPacienteEdad;
-
     @FXML
     private TableColumn<Paciente, String> colPacienteId;
-
     @FXML
     private TableColumn<Paciente, String> colPacienteNombre;
-
-    @FXML
-    private ComboBox<Doctor> comboBoxCitaDoctor;
-
-    @FXML
-    private DatePicker dateCita;
-
-    @FXML
-    private DatePicker dateEliminarClonarReporte;
-
-    @FXML
-    private DatePicker dateFechaReporte;
-
     @FXML
     private DatePicker datePacienteNacimiento;
-
-    @FXML
-    private TableView<Cita> tablaCitas;
-
-    @FXML
-    private TableView<Doctor> tablaDoctores;
-
     @FXML
     private TableView<Paciente> tablaPacientes;
-
     @FXML
     private TextField txtCitaPacienteId;
-
-    @FXML
-    private TextField txtDoctorEspecialidad;
-
-    @FXML
-    private TextField txtDoctorId;
-
-    @FXML
-    private TextField txtDoctorNombre;
-
-    @FXML
-    private TextArea txtEnfermedadesReportes;
-
-    @FXML
-    private TextField txtHorarioAtencion;
-
-    @FXML
-    private TextField txtIdBuscarDoctor;
-
-    @FXML
-    private TextField txtIdDoctorReporte;
-
     @FXML
     private TextField txtIdPacienteBuscar;
-
-    @FXML
-    private TextField txtIdPacienteEliminarClonar;
-
-    @FXML
-    private TextField txtIdPacienteReporte;
-
-    @FXML
-    private Text txtInfoHospital;
-
-    @FXML
-    private TextField txtMaxPacientes;
-
-    @FXML
-    private TextArea txtMedicamentosReportes;
-
     @FXML
     private TextField txtNombrePaciente;
-
     @FXML
     private TextField txtPacienteId;
 
+    //============================DOCTOR==========================//
+    @FXML
+    private TableColumn<Doctor, String> colDoctorEspecialidad;
+    @FXML
+    private TableColumn<Doctor, String> colDoctorId;
+    @FXML
+    private TableColumn<Doctor, String> colDoctorNombre;
+    @FXML
+    private TableView<Doctor> tablaDoctores;
+    @FXML
+    private TextField txtDoctorEspecialidad;
+    @FXML
+    private TextField txtDoctorId;
+    @FXML
+    private TextField txtDoctorNombre;
+    @FXML
+    private TextField txtIdBuscarDoctor;
+
+    //=============================CITA===========================//
+    @FXML
+    private TableColumn<Cita, String> colDoctorCita;
+    @FXML
+    private TableColumn<Cita, LocalDate> colFechaCita;
+    @FXML
+    private TableColumn<Cita, String> colIdPacienteCita;
+    @FXML
+    private TableColumn<Cita, String> colNombrePacienteCita;
+    @FXML
+    private TextField txtCitaDoctorId;
+    @FXML
+    private DatePicker dateCita;
+    @FXML
+    private TableView<Cita> tablaCitas;
+
+    //===========================REPORTE==========================//
+    @FXML
+    private DatePicker dateFechaReporte;
+    @FXML
+    private TextField txtIdDoctorReporte;
+    @FXML
+    private TextField txtIdPacienteReporte;
+    @FXML
+    private TextArea txtEnfermedadesReportes;
+    @FXML
+    private TextArea txtMedicamentosReportes;
+    @FXML
+    private TextField txtIdPacienteEliminarClonar;
+    @FXML
+    public DatePicker dateEliminarClonarReporte;
+
+
+    //======================CONFIGURACION=========================//
+    @FXML
+    private Text txtInfoHospital;
+    @FXML
+    private TextField txtHorarioAtencion;
+    @FXML
+    private TextField txtMaxPacientes;
     @FXML
     private TextArea txtReglasFacturacion;
 
-    @FXML
-    void onAgendarCita(ActionEvent event) {
-        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), onCitaDoctor()); //!!!! Tener en cuenta
-        initDataBinding();
+
+    //METODOS:
+
+    //============================LISTAS BUILDS==========================//
+    public void cargarPacientes(){
+        Collection<Paciente> pacientes = hospitalController.obtenerPacientes();
+        listPacientes.setAll(pacientes);
+
+    }
+    public void cargarDoctores(){
+        Collection<Doctor> doctores = hospitalController.obtenerDoctores();
+        listDoctores.setAll(doctores);
+    }
+    public void cargarCitas(){
+        Collection<Cita> citas = hospitalController.obtenerCitas();
+        listCitas.setAll(citas);
     }
 
+    public Paciente buildPaciente() {
+        return new Paciente(txtNombrePaciente.getText(), txtPacienteId.getText(), datePacienteNacimiento.getValue());
+    }
+    public Doctor buildDoctor() {
+        return new Doctor(txtDoctorNombre.getText(), txtDoctorId.getText(), txtDoctorEspecialidad.getText());
+    }
+
+    //==========================PACIENTE==========================//
+
     @FXML
-    void onAgregarDoctor(ActionEvent event) {
-        hospitalController.agregarDoctor(new Doctor(txtDoctorNombre.getText(),txtDoctorId.getText(), txtDoctorEspecialidad.getText()));
-        initDataBinding();
+    void onBuscarPaciente(ActionEvent event) {
+        String idBuscar = txtIdPacienteBuscar.getText();
+        if(!idBuscar.isEmpty()){
+            Paciente pacienteEncontrado = hospitalController.buscarPaciente(idBuscar);
+            if(pacienteEncontrado != null){
+                tablaPacientes.getSelectionModel().select(pacienteEncontrado);
+                tablaPacientes.scrollTo(pacienteEncontrado);
+            }
+        }
     }
 
     @FXML
     void onAgregarPaciente(ActionEvent event) {
-        hospitalController.agregarPaciente(new Paciente(txtNombrePaciente.getText(), txtPacienteId.getText(), datePacienteNacimiento.getValue()));
+        hospitalController.agregarPaciente(buildPaciente());
         initDataBinding();
     }
+
+    @FXML
+    void onEditarPaciente(ActionEvent event) {
+        Paciente pacienteSeleccionado = selectedPaciente;
+        Paciente pacienteActual = buildPaciente();
+        if (pacienteSeleccionado != null) {
+            hospitalController.actualizarPaciente(pacienteSeleccionado.getId(), pacienteActual);
+            cargarPacientes();
+        }
+    }
+
+    @FXML
+    void onVerCitasEHistorialPaciente(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onEliminarPaciente(ActionEvent event) {
+        Paciente pacienteSeleccionado = selectedPaciente;
+        if(pacienteSeleccionado != null){
+            hospitalController.eliminarPaciente(pacienteSeleccionado.getId());
+            cargarPacientes();
+        }
+    }
+
+    //===========================DOCTOR===========================//
+
+    @FXML
+    void onBuscarDoctor(ActionEvent event) {
+        String idBuscar = txtIdBuscarDoctor.getText();
+        if(!idBuscar.isEmpty()){
+            Doctor doctorEncontrado = hospitalController.buscarDoctor(idBuscar);
+            if(doctorEncontrado != null){
+                tablaDoctores.getSelectionModel().select(doctorEncontrado);
+                tablaDoctores.scrollTo(doctorEncontrado);
+            }
+        }
+    }
+    @FXML
+    void onAgregarDoctor(ActionEvent event) {
+        hospitalController.agregarDoctor(buildDoctor());
+        initDataBinding();
+    }
+
+    @FXML
+    void onEditarDoctor(ActionEvent event) {
+        Doctor doctorSeleccionado = selectedDoctor;
+        Doctor doctorActual = buildDoctor();
+        if (doctorSeleccionado != null) {
+            hospitalController.actualizarDoctor(doctorSeleccionado.getId(), doctorActual);
+            cargarDoctores();
+        }
+    }
+
+    @FXML
+    void onEliminarDoctor(ActionEvent event) {
+        Doctor doctorSeleccionado = selectedDoctor;
+        if(doctorSeleccionado != null){
+            hospitalController.eliminarDoctor(doctorSeleccionado.getId());
+            cargarDoctores();
+        }
+
+    }
+
+    //============================CITA============================//
+
+    @FXML
+    void onAgendarCita(ActionEvent event) {
+        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), hospitalController.buscarDoctor(txtDoctorId.getText()));
+        initDataBinding();
+    }
+    @FXML
+    void onCancelarCita(ActionEvent event) {
+        Cita citaSeleccionada = selectedCita;
+        hospitalController.cancelarCita(citaSeleccionada);
+        initDataBinding();
+    }
+
+
+    //===========================REPORTE==========================//
 
     @FXML
     void onAgregarReporte(ActionEvent event) {
@@ -174,24 +253,8 @@ public class HospitalViewController {
     }
 
     @FXML
-    void onBuscarDoctor(ActionEvent event) {
-        hospitalController.buscarDoctor(txtIdBuscarDoctor.getText());
-    }
+    void onEliminarReporte(ActionEvent event) {
 
-    @FXML
-    void onBuscarPaciente(ActionEvent event) {
-        hospitalController.buscarPaciente(txtIdPacienteBuscar.getText());
-    }
-
-    @FXML
-    void onCancelarCita(ActionEvent event) {
-        hospitalController.cancelarCita();//////// Mas tarde
-        initDataBinding();
-    }
-
-    @FXML
-    Doctor onCitaDoctor() {
-        return comboBoxCitaDoctor.getValue(); // Tener en cuenta
     }
 
     @FXML
@@ -200,45 +263,25 @@ public class HospitalViewController {
     }
 
     @FXML
-    void onEditarDoctor(ActionEvent event) {
-
+    public void onFechaReporte(ActionEvent actionEvent) {
     }
 
-    @FXML
-    void onEditarPaciente(ActionEvent event) {
-        hospitalController.actualizarPaciente(
-                
-        );
-    }
-
-    @FXML
-    void onEliminarDoctor(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onEliminarPaciente(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onEliminarReporte(ActionEvent event) {
-
-    }
+    //========================CONFIGURACION=======================//
 
     @FXML
     void onGuardarConfiguracion(ActionEvent event) {
         hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), txtReglasFacturacion.getText());
         initDataBinding();
     }
-
-    @FXML
-    void onVerCitasEHistorialPaciente(ActionEvent event) {
-
-    }
+    //mostrar config
 
     //=====================OTRO=====================//
 
+    /**
+     * Metodo para convertir una String a una lista de strings cortandolo desde un ";"
+     * @param texto String dividida de ";"
+     * @return Lista de Strings
+     */
     public LinkedList<String> convertirStringALista(String texto) {
 
         LinkedList<String> listaStrings = new LinkedList<>();
@@ -272,26 +315,29 @@ public class HospitalViewController {
     private void listenerSelection()
     {
         tablaPacientes.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            selectedPaciente = newSelection;
+            if( newSelection != null){
+                selectedPaciente = newSelection;
+                txtNombrePaciente.setText(newSelection.getNombre());
+                txtPacienteId.setText(newSelection.getId());
+                datePacienteNacimiento.setValue(newSelection.getFechaNacimiento());
+            }
         });
         tablaDoctores.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            selectedDoctor = newSelection;
+            if( newSelection != null){
+                selectedDoctor = newSelection;
+                txtDoctorNombre.setText(newSelection.getNombre());
+                txtDoctorId.setText(newSelection.getId());
+                txtDoctorEspecialidad.setText(newSelection.getEspecialidad());
+            }
         });
         tablaCitas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            selectedCita = newSelection;
+            if( newSelection != null){
+                selectedCita = newSelection;
+                dateCita.setValue(newSelection.getFecha());
+                txtCitaPacienteId.setText(newSelection.getPaciente().getId());
+                txtCitaDoctorId.setText(newSelection.getDoctor().getId());
+            }
         });
-    }
-    public void cargarPacientes(){
-        Collection<Paciente> pacientes = hospitalController.obtenerPacientes();
-        listPacientes.setAll(pacientes);
-    }
-    public void cargarDoctores(){
-        Collection<Doctor> doctores = hospitalController.obtenerDoctores();
-        listDoctores.setAll(doctores);
-    }
-    public void cargarCitas(){
-        Collection<Cita> citas = hospitalController.obtenerCitas();
-        listCitas.setAll(citas);
     }
 
     private void initDataBinding() {
@@ -316,4 +362,5 @@ public class HospitalViewController {
     public void setApp(App app){
         this.app = app;
     }
+
 }

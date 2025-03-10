@@ -14,10 +14,22 @@ public class HospitalController {
     public HospitalController(Hospital hospital) {
         this.hospital = hospital;
     }
+
+    //============================LISTAS==========================//
+    public Collection<Paciente> obtenerPacientes() {
+        return hospital.getPacientes();
+    }
+    public Collection<Doctor> obtenerDoctores() {
+        return hospital.getDoctores();
+    }
+    public  Collection<Cita> obtenerCitas(){
+        return  hospital.getGestorCitas().getCitas();
+    }
+
+    //==========================PACIENTE==========================//
     public Paciente buscarPaciente(String id) {
         return  hospital.buscarPaciente(id);
     }
-
     public void agregarPaciente(Paciente paciente) {
         hospital.agregarPaciente(paciente);
     }
@@ -28,6 +40,7 @@ public class HospitalController {
         hospital.eliminarPaciente(id);
     }
 
+    //============================DOCTOR==========================//
     public Doctor buscarDoctor(String id) {
         return hospital.buscarDoctor(id);
     }
@@ -40,15 +53,8 @@ public class HospitalController {
     public void eliminarDoctor(String id) {
         hospital.eliminarDoctor(id);
     }
-    public Collection<Paciente> obtenerPacientes() {
-        return hospital.getPacientes();
-    }
-    public Collection<Doctor> obtenerDoctores() {
-        return hospital.getDoctores();
-    }
-    public  Collection<Cita> obtenerCitas(){
-        return  hospital.getGestorCitas().getCitas();
-    }
+
+    //=============================CITA===========================//
     public void agendarCita( LocalDate fecha, Paciente paciente, Doctor doctor){
         hospital.getGestorCitas().agendarCita(fecha,paciente,doctor);
     }
@@ -56,6 +62,7 @@ public class HospitalController {
         return hospital.getGestorCitas().cancelarCita(cita);
     }
 
+    //===========================REPORTE==========================//
     public Reporte buscarReporte(LocalDate fechaConsulta, String idPaciente){
         return hospital.buscarReporte(fechaConsulta, idPaciente);
     }
@@ -65,11 +72,13 @@ public class HospitalController {
     public void eliminarReporteDelHistorial(LocalDate fechaConsulta, String idPaciente) {
         hospital.eliminarReporteDelHistorial(fechaConsulta, idPaciente);
     }
+    /**
+     *public Reporte clonarReporte(Reporte reporte){
+     *         return reporte.clone();
+     *     }
+     */
 
-    //public Reporte clonarReporte(Reporte reporte){
-    //    return reporte.clone();
-    //}
-
+    //======================CONFIGURACION=========================//
     public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, String reglasFacturacion){
         GestorConfiguracion gestor = hospital.getGestorConfiguracion();
         gestor.setHorarioAtencion(horarioAtencion);

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reporte implements Cloneable{
+public class Reporte implements ClonableReporte, Cloneable{
     private LocalDate fechaConsulta;
     private Paciente paciente;
     private Doctor doctor;
@@ -22,11 +22,11 @@ public class Reporte implements Cloneable{
     }
 
 
+    public Reporte clonar() {
+        Reporte copia = null;
 
-    public Reporte clone() {
         try {
-            Reporte copia = (Reporte) super.clone();
-
+            copia = (Reporte) clone();
             copia.enfermedades = new LinkedList<>(this.enfermedades);
             copia.medicamentos = new LinkedList<>(this.medicamentos);
 
@@ -34,14 +34,16 @@ public class Reporte implements Cloneable{
             copia.doctor = new Doctor(this.doctor.getNombre(),this.doctor.getId(),this.doctor.getEspecialidad());
 
             copia.edadPacienteEnConsulta = copia.paciente.calcularEdad();
-
             return copia;
-        }catch (CloneNotSupportedException ex) {
-            throw new AssertionError();
+
+        }catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Error cloning Reporte");
         }
     }
 
+
     //-----------------Getters y Setters----------------------//
+
 
     public LocalDate getFechaConsulta() {
         return fechaConsulta;
