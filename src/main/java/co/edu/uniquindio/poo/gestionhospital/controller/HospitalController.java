@@ -19,10 +19,16 @@ public class HospitalController {
     public Collection<Paciente> obtenerPacientes() {
         return hospital.getPacientes();
     }
+    public Collection<Paciente> obtenerPacientesPalindromos(){
+        return hospital.obtenerPacientesNombresPalindromos();
+    }
+    public Collection<Paciente> obtenerPacientesVocalesRepetidas(){
+        return hospital.obtenerPacientesNombreDosVocalesIguales();
+    }
     public Collection<Doctor> obtenerDoctores() {
         return hospital.getDoctores();
     }
-    public  Collection<Cita> obtenerCitas(){
+    public Collection<Cita> obtenerCitas(){
         return  hospital.getGestorCitas().getCitas();
     }
 
@@ -77,6 +83,11 @@ public class HospitalController {
      *         return reporte.clone();
      *     }
      */
+
+    //=============================EXTRA==========================//
+
+
+
 
     //======================CONFIGURACION=========================//
     public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, String reglasFacturacion){

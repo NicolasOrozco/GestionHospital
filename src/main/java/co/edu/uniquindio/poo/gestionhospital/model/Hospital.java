@@ -250,13 +250,13 @@ public class Hospital {
      * Metodo para obtener una lista con nombres palíndromos de la lista de pacientes.
      * @return palindromos Lista de nombres palíndromos de entre los pacientes.
      */
-    public LinkedList<String> obtenerPacientesNombresPalindromos(){
+    public LinkedList<Paciente> obtenerPacientesNombresPalindromos(){
 
-        LinkedList<String> palindromos = new LinkedList<>();
+        LinkedList<Paciente> palindromos = new LinkedList<>();
 
         for(Paciente paciente : pacientes){
-            if(esPalindromo(paciente.getNombre())){
-                palindromos.add(paciente.getNombre());
+            if(esPalindromo(paciente.getNombre().toLowerCase())){
+                palindromos.add(paciente);
             }
         }
 
@@ -286,13 +286,13 @@ public class Hospital {
      * Metodo para obtener una lista de nombres con dos vocales iguales de la lista de pacientes.
      * @return vocalesIguales Lista de nombres con dos vocales iguales de entre los pacientes.
      */
-    public LinkedList<String> obtenerPacientesNombreDosVocalesIguales(){
+    public LinkedList<Paciente> obtenerPacientesNombreDosVocalesIguales(){
 
-        LinkedList<String> vocalesIguales = new LinkedList<>();
+        LinkedList<Paciente> vocalesIguales = new LinkedList<>();
 
         for(Paciente paciente : pacientes){
-            if(nombreDosVocalesIguales(paciente.getNombre())){
-                vocalesIguales.add(paciente.getNombre());
+            if(nombreDosVocalesIguales(paciente.obtenerNombreSinApellido())){
+                vocalesIguales.add(paciente);
             }
         }
 

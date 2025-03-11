@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import co.edu.uniquindio.poo.gestionhospital.controller.HospitalController;
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import co.edu.uniquindio.poo.gestionhospital.app.App;
+import co.edu.uniquindio.poo.gestionhospital.app.HospitalApp;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -30,7 +30,7 @@ public class HospitalViewController {
     private Paciente selectedPaciente;
     private Cita selectedCita;
 
-    public App app;
+    public HospitalApp HospitalApp;
     public HospitalController hospitalController;
 
     @FXML
@@ -130,6 +130,15 @@ public class HospitalViewController {
         listPacientes.setAll(pacientes);
 
     }
+    public void cargarPacientesPalindromos(){
+        Collection<Paciente> pacientesPalindromos = hospitalController.obtenerPacientesPalindromos();
+        listPacientes.setAll(pacientesPalindromos);
+    }
+    public void cargarPacientesVocalesRepetidas(){
+        Collection<Paciente> pacientesVocalesRepetidas = hospitalController.obtenerPacientesVocalesRepetidas();
+        listPacientes.setAll(pacientesVocalesRepetidas);
+    }
+
     public void cargarDoctores(){
         Collection<Doctor> doctores = hospitalController.obtenerDoctores();
         listDoctores.setAll(doctores);
@@ -163,7 +172,7 @@ public class HospitalViewController {
     @FXML
     void onAgregarPaciente(ActionEvent event) {
         hospitalController.agregarPaciente(buildPaciente());
-        initDataBinding();
+        cargarPacientes();
     }
 
     @FXML
@@ -206,7 +215,7 @@ public class HospitalViewController {
     @FXML
     void onAgregarDoctor(ActionEvent event) {
         hospitalController.agregarDoctor(buildDoctor());
-        initDataBinding();
+        cargarDoctores();
     }
 
     @FXML
@@ -233,14 +242,14 @@ public class HospitalViewController {
 
     @FXML
     void onAgendarCita(ActionEvent event) {
-        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), hospitalController.buscarDoctor(txtDoctorId.getText()));
-        initDataBinding();
+        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), hospitalController.buscarDoctor(txtCitaDoctorId.getText()));
+        cargarCitas();
     }
     @FXML
     void onCancelarCita(ActionEvent event) {
         Cita citaSeleccionada = selectedCita;
         hospitalController.cancelarCita(citaSeleccionada);
-        initDataBinding();
+        cargarCitas();
     }
 
 
@@ -264,6 +273,22 @@ public class HospitalViewController {
 
     @FXML
     public void onFechaReporte(ActionEvent actionEvent) {
+    }
+
+    //=============================EXTRA==========================//
+    @FXML
+    void onRecargarListaPacientes(ActionEvent event) {
+        cargarPacientes();
+    }
+
+    @FXML
+    void onCargarPacientesPalindromos(ActionEvent event) {
+        cargarPacientesPalindromos();
+    }
+
+    @FXML
+    void onCargarPacientesVocalesRepetidas(ActionEvent event) {
+        cargarPacientesVocalesRepetidas();
     }
 
     //========================CONFIGURACION=======================//
@@ -298,7 +323,7 @@ public class HospitalViewController {
 
     @FXML
     void initialize() {
-        hospitalController = new HospitalController(app.hospital);
+        hospitalController = new HospitalController(HospitalApp.hospital);
         initView();
     }
 
@@ -359,8 +384,8 @@ public class HospitalViewController {
 
         // Puedes agregar más enlaces para otros controles según sea necesario
     }
-    public void setApp(App app){
-        this.app = app;
+    public void setApp(HospitalApp app){
+        this.HospitalApp = app;
     }
 
 }

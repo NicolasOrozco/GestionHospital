@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -20,293 +25,350 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="684.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.viewController.HospitalViewController">
+<BorderPane prefHeight="684.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.viewController.HospitalViewController">
     <center>
         <TabPane>
-            <Tab text="Pacientes">
-                <BorderPane prefWidth="657.0">
-                    <center>
-                        <VBox>
-                            <TableView fx:id="tablaPacientes">
-                                <columns>
-                                    <TableColumn fx:id="colPacienteId" prefWidth="227.0" text="ID" />
-                                    <TableColumn fx:id="colPacienteNombre" prefWidth="249.0" text="Nombre" />
-                                    <TableColumn fx:id="colPacienteEdad" prefWidth="159.0" text="Edad" />
-                                </columns>
-                            </TableView>
-                            <ToolBar prefHeight="40.0" prefWidth="200.0">
-                                <Button onAction="#onVerCitasEHistorialPaciente" text="Ver Citas e Historial del paciente" />
-                                <Label prefHeight="17.0" prefWidth="358.0" text="  " />
-                                <Button onAction="#onEliminarPaciente" text="Eliminar" />
-                            </ToolBar>
-                            <GridPane alignment="CENTER" hgap="10" prefHeight="116.0" prefWidth="634.0" vgap="10">
-                                <columnConstraints>
-                                    <ColumnConstraints />
-                                    <ColumnConstraints maxWidth="164.0" minWidth="148.0" prefWidth="148.0" />
-                                    <ColumnConstraints fillWidth="false" maxWidth="121.0" minWidth="87.0" prefWidth="87.0" />
-                                    <ColumnConstraints fillWidth="false" maxWidth="183.0" minWidth="154.0" prefWidth="183.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints maxHeight="33.0" minHeight="24.0" prefHeight="24.0" />
-                                    <RowConstraints maxHeight="26.0" minHeight="17.0" prefHeight="26.0" />
-                                    <RowConstraints />
-                                </rowConstraints>
-                                <padding>
-                                    <Insets top="15.0" />
-                                </padding>
-                                <Label text="Nombre:" />
-                                <TextField fx:id="txtNombrePaciente" GridPane.columnIndex="1" />
-                                <Label text="ID:" GridPane.rowIndex="1" />
-                                <TextField fx:id="txtPacienteId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label text="Fecha Nacimiento: " GridPane.rowIndex="2" />
-                                <DatePicker fx:id="datePacienteNacimiento" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label prefHeight="17.0" prefWidth="118.0" text="      " GridPane.columnIndex="2" />
-                                <Label prefHeight="17.0" prefWidth="130.0" text="Buscar Paciente por ID:" GridPane.columnIndex="3" />
-                                <TextField fx:id="txtIdPacienteBuscar" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                <Button onAction="#onBuscarPaciente" text="Buscar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                            </GridPane>
-                        </VBox>
-                    </center>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                    <bottom>
-                        <ToolBar prefHeight="40.0" prefWidth="637.0" BorderPane.alignment="CENTER">
-                            <Button onAction="#onAgregarPaciente" text="Agregar" />
-                            <Button onAction="#onEditarPaciente" text="Editar" />
-                        </ToolBar>
-                    </bottom>
-                </BorderPane>
-            </Tab>
-            <Tab text="Doctores">
-                <BorderPane>
-                    <center>
-                        <VBox>
-                            <BorderPane.margin>
-                                <Insets left="10.0" right="10.0" top="10.0" />
-                            </BorderPane.margin>
-                            <TableView fx:id="tablaDoctores" prefHeight="457.0" prefWidth="637.0">
-                                <columns>
-                                    <TableColumn fx:id="colDoctorId" prefWidth="169.60003662109375" text="ID" />
-                                    <TableColumn fx:id="colDoctorNombre" prefWidth="192.79998779296875" text="Nombre" />
-                                    <TableColumn fx:id="colDoctorEspecialidad" prefWidth="192.00003051757812" text="Especialidad" />
-                                </columns>
-                            </TableView>
-                            <GridPane alignment="CENTER" hgap="10" nodeOrientation="LEFT_TO_RIGHT" prefHeight="116.0" prefWidth="980.0" vgap="10">
-                                <columnConstraints>
-                                    <ColumnConstraints maxWidth="97.0" minWidth="38.0" prefWidth="86.0" />
-                                    <ColumnConstraints maxWidth="163.0" minWidth="111.0" prefWidth="115.0" />
-                                    <ColumnConstraints maxWidth="152.0" minWidth="13.0" prefWidth="91.0" />
-                                    <ColumnConstraints hgrow="ALWAYS" maxWidth="157.0" minWidth="-Infinity" prefWidth="157.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                </rowConstraints>
-                                <Label text="Nombre:" />
-                                <TextField fx:id="txtDoctorNombre" GridPane.columnIndex="1" />
-                                <Label text="ID:" GridPane.rowIndex="1" />
-                                <TextField fx:id="txtDoctorId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label prefHeight="18.0" prefWidth="79.0" text="Especialidad: " GridPane.rowIndex="2" />
-                                <TextField fx:id="txtDoctorEspecialidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label text="  " GridPane.columnIndex="2" />
-                                <Label prefHeight="17.0" prefWidth="161.0" text="Buscar Doctor por ID:" GridPane.columnIndex="3" />
-                                <TextField fx:id="txtIdBuscarDoctor" prefHeight="25.0" prefWidth="147.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                <Button onAction="#onBuscarDoctor" text="Buscar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                <Label prefHeight="17.0" prefWidth="87.0" text="                   " GridPane.columnIndex="2" />
-                            </GridPane>
-                        </VBox>
-                    </center>
-                    <bottom>
-                        <ToolBar prefHeight="44.0" prefWidth="657.0" BorderPane.alignment="CENTER">
-                            <Button onAction="#onAgregarDoctor" text="Agregar" />
-                            <Button onAction="#onEditarDoctor" text="Editar" />
-                            <Button onAction="#onEliminarDoctor" text="Eliminar" />
-                        </ToolBar>
-                    </bottom>
-                </BorderPane>
-            </Tab>
-            <Tab text="Citas">
-                <BorderPane>
-                    <center>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                            <padding>
-                                <Insets bottom="10.0" />
-                            </padding>
-                            <TableView fx:id="tablaCitas" prefHeight="463.0" prefWidth="637.0">
-                                <columns>
-                                    <TableColumn fx:id="colFechaCita" prefWidth="155.19995725154877" text="Fecha" />
-                                    <TableColumn fx:id="colIdPacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="ID Paciente" />
-                                    <TableColumn fx:id="colNombrePacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="Nombre del Paciente" />
-                                    <TableColumn fx:id="colDoctorCita" minWidth="4.79998779296875" prefWidth="152.800048828125" text="Doctor" />
-                                </columns>
-                            </TableView>
-                            <GridPane alignment="CENTER" hgap="10" prefHeight="152.0" prefWidth="637.0" vgap="10" VBox.vgrow="ALWAYS">
-                                <columnConstraints>
-                                    <ColumnConstraints />
-                                    <ColumnConstraints />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                </rowConstraints>
-                                <Label text="Fecha:" />
-                                <DatePicker fx:id="dateCita" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" />
-                                <Label prefWidth="86.0" text="ID del Paciente:" GridPane.rowIndex="1" />
-                                <TextField fx:id="txtCitaPacienteId" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label text="ID de Doctor:" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtCitaDoctorId" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                            </GridPane>
-                            <ToolBar>
-                                <Button onAction="#onAgendarCita" text="Agendar Cita" />
-                                <Button onAction="#onCancelarCita" text="Cancelar Cita" />
-                            </ToolBar>
-                        </VBox>
-                    </center>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </BorderPane>
-            </Tab>
-            <Tab text="Reportes">
-                <BorderPane>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                    <top>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crear Reporte" BorderPane.alignment="TOP_LEFT">
-                            <font>
-                                <Font name="Century Gothic" size="28.0" />
-                            </font>
-                        </Text>
-                    </top>
-                    <opaqueInsets>
-                        <Insets top="10.0" />
-                    </opaqueInsets>
-                    <center>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                            </padding>
-                            <GridPane prefHeight="152.0" prefWidth="617.0" VBox.vgrow="ALWAYS">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="176.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="182.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="265.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints maxHeight="236.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="360.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                <Label prefHeight="17.0" prefWidth="110.0" text="Fecha del Reporte:" />
-                                <DatePicker fx:id="dateFechaReporte" onAction="#onFechaReporte" prefHeight="25.0" prefWidth="182.0" GridPane.columnIndex="1" />
-                                <Label text="ID del Doctor:" GridPane.rowIndex="2" />
-                                <TextField fx:id="txtIdDoctorReporte" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Label text="ID del Paciente:" GridPane.rowIndex="1" />
-                                <TextField fx:id="txtIdPacienteReporte" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Label prefHeight="47.0" prefWidth="156.0" text="                " wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                            </GridPane>
-                            <GridPane prefHeight="348.0" prefWidth="617.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="281.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="32.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="304.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints maxHeight="152.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="338.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                                <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                </padding>
-                                <TextArea fx:id="txtEnfermedadesReportes" prefHeight="262.0" prefWidth="281.0" text="separe cada enfermedad con un punto y coma" wrapText="true" GridPane.rowIndex="1" />
-                                <TextArea fx:id="txtMedicamentosReportes" prefHeight="132.0" prefWidth="325.0" text="separe cada medicamento con un punto y coma" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                <Label text="Lista de enfermedades:" />
-                                <Label text="Lista de Medicamentos" GridPane.columnIndex="2" />
-                            </GridPane>
-                            <Pane prefHeight="45.0" prefWidth="617.0">
-                                <Button alignment="CENTER" layoutX="207.0" layoutY="2.0" onAction="#onAgregarReporte" prefHeight="25.0" prefWidth="204.0" text="Agregar Reporte" />
-                            </Pane>
-                            <GridPane alignment="CENTER" hgap="10.0" prefHeight="64.0" prefWidth="579.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="157.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="190.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="64.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="73.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                <padding>
-                                    <Insets top="12.0" />
-                                </padding>
-                                <Button onAction="#onEliminarReporte" prefHeight="25.0" prefWidth="87.0" text="Eliminar" GridPane.columnIndex="4" />
-                                <Button mnemonicParsing="false" onAction="#onClonarReporte" prefHeight="25.0" prefWidth="65.0" text="Clonar" GridPane.columnIndex="3" />
-                                <Label prefHeight="34.0" prefWidth="106.0" text="Eliminar o Clonar Reporte" wrapText="true" />
-                                <TextField fx:id="txtIdPacienteEliminarClonar" prefHeight="25.0" prefWidth="191.0" text="ID Paciente" GridPane.columnIndex="2" />
-                                <DatePicker fx:id="dateEliminarClonarReporte" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" />
-                            </GridPane>
-                        </VBox>
-                    </center>
-                </BorderPane>
-            </Tab>
-            <Tab text="Configuración">
-                <BorderPane>
-                    <center>
-                        <GridPane alignment="CENTER" prefHeight="551.0" prefWidth="208.0">
-                            <columnConstraints>
-                                <ColumnConstraints percentWidth="64.0" />
-                                <ColumnConstraints percentWidth="36.0" />
-                            </columnConstraints>
-
-                            <rowConstraints>
-                                <RowConstraints percentHeight="100" />
-                            </rowConstraints>
-                            <VBox spacing="10.0" GridPane.columnIndex="1">
-                                <GridPane.margin>
-                                    <Insets />
-                                </GridPane.margin>
-                                <padding>
-                                    <Insets left="10.0" right="10.0" top="20.0" />
-                                </padding>
-                                <Label text="Editor de Configuración">
-                                    <font>
-                                        <Font name="Century Gothic" size="17.0" />
-                                    </font>
-                                </Label>
-                                <Label text="Horario de Atención:" />
-                                <TextField fx:id="txtHorarioAtencion" />
-                                <Label text="Máx. Pacientes por Médico:" />
-                                <TextField fx:id="txtMaxPacientes" prefHeight="26.0" prefWidth="51.0" />
-                                <Label text="Reglas de Facturación:" />
-                                <TextArea fx:id="txtReglasFacturacion" text="separe cada regla con un punto y coma" wrapText="true" />
-                                <Button onAction="#onGuardarConfiguracion" text="Guardar" />
-                            </VBox>
-                            <VBox prefHeight="200.0" prefWidth="100.0">
-                                <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
-                                </padding>
-                                <Label text="Informacion del Hospital">
-                                    <font>
-                                        <Font name="Century Gothic" size="24.0" />
-                                    </font>
-                                </Label>
-                                <Text fx:id="txtInfoHospital" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="386.9367198944092" />
-                            </VBox>
-                        </GridPane>
-                    </center>
-                    <padding>
-                        <Insets left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </BorderPane>
-            </Tab>
+           <tabs>
+               <Tab text="Pacientes">
+                  <content>
+                      <BorderPane prefWidth="657.0">
+                          <center>
+                              <VBox>
+                                 <children>
+                              <ToolBar layoutX="10.0" layoutY="410.0" prefHeight="35.0" prefWidth="637.0">
+                                 <items>
+                                    <Button onAction="#onRecargarListaPacientes" prefHeight="25.0" prefWidth="141.0" text="Recargar lista completa" />
+                                    <Label prefHeight="17.0" prefWidth="36.0" text="  " />
+                                    <Button onAction="#onCargarPacientesPalindromos" text="Cargar Pacientes Palíndromos" />
+                                    <Label prefHeight="17.0" prefWidth="22.0" text="  " />
+                                    <Button onAction="#onCargarPacientesVocalesRepetidas" text="Cargar Pacientes con Vocales Repetidas" />
+                                 </items>
+                              </ToolBar>
+                                     <TableView fx:id="tablaPacientes">
+                                         <columns>
+                                             <TableColumn fx:id="colPacienteId" prefWidth="227.0" text="ID" />
+                                             <TableColumn fx:id="colPacienteNombre" prefWidth="249.0" text="Nombre" />
+                                             <TableColumn fx:id="colPacienteEdad" prefWidth="159.0" text="Edad" />
+                                         </columns>
+                                     </TableView>
+                                     <ToolBar prefHeight="40.0" prefWidth="200.0">
+                                        <items>
+                                            <Button onAction="#onVerCitasEHistorialPaciente" text="Ver Citas e Historial del paciente" />
+                                            <Label prefHeight="17.0" prefWidth="358.0" text="  " />
+                                            <Button onAction="#onEliminarPaciente" text="Eliminar" />
+                                        </items>
+                                     </ToolBar>
+                                     <GridPane alignment="CENTER" hgap="10" prefHeight="116.0" prefWidth="634.0" vgap="10">
+                                         <columnConstraints>
+                                             <ColumnConstraints />
+                                             <ColumnConstraints maxWidth="164.0" minWidth="148.0" prefWidth="148.0" />
+                                             <ColumnConstraints fillWidth="false" maxWidth="121.0" minWidth="87.0" prefWidth="87.0" />
+                                             <ColumnConstraints fillWidth="false" maxWidth="183.0" minWidth="154.0" prefWidth="183.0" />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints maxHeight="33.0" minHeight="24.0" prefHeight="24.0" />
+                                             <RowConstraints maxHeight="26.0" minHeight="17.0" prefHeight="26.0" />
+                                             <RowConstraints />
+                                         </rowConstraints>
+                                         <padding>
+                                             <Insets top="15.0" />
+                                         </padding>
+                                        <children>
+                                            <Label text="Nombre:" />
+                                            <TextField fx:id="txtNombrePaciente" GridPane.columnIndex="1" />
+                                            <Label text="ID:" GridPane.rowIndex="1" />
+                                            <TextField fx:id="txtPacienteId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label text="Fecha Nacimiento: " GridPane.rowIndex="2" />
+                                            <DatePicker fx:id="datePacienteNacimiento" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            <Label prefHeight="17.0" prefWidth="118.0" text="      " GridPane.columnIndex="2" />
+                                            <Label prefHeight="17.0" prefWidth="130.0" text="Buscar Paciente por ID:" GridPane.columnIndex="3" />
+                                            <TextField fx:id="txtIdPacienteBuscar" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                            <Button onAction="#onBuscarPaciente" text="Buscar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                        </children>
+                                     </GridPane>
+                                 </children>
+                              </VBox>
+                          </center>
+                          <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                          </padding>
+                          <bottom>
+                              <ToolBar prefHeight="49.0" prefWidth="637.0" BorderPane.alignment="CENTER">
+                                 <items>
+                                     <Button onAction="#onAgregarPaciente" text="Agregar" />
+                                     <Button onAction="#onEditarPaciente" text="Editar" />
+                                 </items>
+                              </ToolBar>
+                          </bottom>
+                      </BorderPane>
+                  </content>
+               </Tab>
+               <Tab text="Doctores">
+                  <content>
+                      <BorderPane>
+                          <center>
+                              <VBox>
+                                  <BorderPane.margin>
+                                      <Insets left="10.0" right="10.0" top="10.0" />
+                                  </BorderPane.margin>
+                                 <children>
+                                     <TableView fx:id="tablaDoctores" prefHeight="457.0" prefWidth="637.0">
+                                         <columns>
+                                             <TableColumn fx:id="colDoctorId" prefWidth="169.60003662109375" text="ID" />
+                                             <TableColumn fx:id="colDoctorNombre" prefWidth="192.79998779296875" text="Nombre" />
+                                             <TableColumn fx:id="colDoctorEspecialidad" prefWidth="192.00003051757812" text="Especialidad" />
+                                         </columns>
+                                     </TableView>
+                                     <GridPane alignment="CENTER" hgap="10" nodeOrientation="LEFT_TO_RIGHT" prefHeight="116.0" prefWidth="980.0" vgap="10">
+                                         <columnConstraints>
+                                             <ColumnConstraints maxWidth="97.0" minWidth="38.0" prefWidth="86.0" />
+                                             <ColumnConstraints maxWidth="163.0" minWidth="111.0" prefWidth="115.0" />
+                                             <ColumnConstraints maxWidth="152.0" minWidth="13.0" prefWidth="91.0" />
+                                             <ColumnConstraints hgrow="ALWAYS" maxWidth="157.0" minWidth="-Infinity" prefWidth="157.0" />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints />
+                                             <RowConstraints />
+                                             <RowConstraints />
+                                         </rowConstraints>
+                                        <children>
+                                            <Label text="Nombre:" />
+                                            <TextField fx:id="txtDoctorNombre" GridPane.columnIndex="1" />
+                                            <Label text="ID:" GridPane.rowIndex="1" />
+                                            <TextField fx:id="txtDoctorId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label prefHeight="18.0" prefWidth="79.0" text="Especialidad: " GridPane.rowIndex="2" />
+                                            <TextField fx:id="txtDoctorEspecialidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            <Label text="  " GridPane.columnIndex="2" />
+                                            <Label prefHeight="17.0" prefWidth="161.0" text="Buscar Doctor por ID:" GridPane.columnIndex="3" />
+                                            <TextField fx:id="txtIdBuscarDoctor" prefHeight="25.0" prefWidth="147.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                            <Button onAction="#onBuscarDoctor" text="Buscar" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                            <Label prefHeight="17.0" prefWidth="87.0" text="                   " GridPane.columnIndex="2" />
+                                        </children>
+                                     </GridPane>
+                                 </children>
+                              </VBox>
+                          </center>
+                          <bottom>
+                              <ToolBar prefHeight="44.0" prefWidth="657.0" BorderPane.alignment="CENTER">
+                                 <items>
+                                     <Button onAction="#onAgregarDoctor" text="Agregar" />
+                                     <Button onAction="#onEditarDoctor" text="Editar" />
+                                     <Button onAction="#onEliminarDoctor" text="Eliminar" />
+                                 </items>
+                              </ToolBar>
+                          </bottom>
+                      </BorderPane>
+                  </content>
+               </Tab>
+               <Tab text="Citas">
+                  <content>
+                      <BorderPane>
+                          <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                  <padding>
+                                      <Insets bottom="10.0" />
+                                  </padding>
+                                 <children>
+                                     <TableView fx:id="tablaCitas" prefHeight="463.0" prefWidth="637.0">
+                                         <columns>
+                                             <TableColumn fx:id="colFechaCita" prefWidth="155.19995725154877" text="Fecha" />
+                                             <TableColumn fx:id="colIdPacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="ID Paciente" />
+                                             <TableColumn fx:id="colNombrePacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="Nombre del Paciente" />
+                                             <TableColumn fx:id="colDoctorCita" minWidth="4.79998779296875" prefWidth="152.800048828125" text="Doctor" />
+                                         </columns>
+                                     </TableView>
+                                     <GridPane alignment="CENTER" hgap="10" prefHeight="152.0" prefWidth="637.0" vgap="10" VBox.vgrow="ALWAYS">
+                                         <columnConstraints>
+                                             <ColumnConstraints />
+                                             <ColumnConstraints />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints />
+                                             <RowConstraints />
+                                             <RowConstraints />
+                                         </rowConstraints>
+                                        <children>
+                                            <Label text="Fecha:" />
+                                            <DatePicker fx:id="dateCita" prefHeight="26.0" prefWidth="151.0" GridPane.columnIndex="1" />
+                                            <Label prefWidth="86.0" text="ID del Paciente:" GridPane.rowIndex="1" />
+                                            <TextField fx:id="txtCitaPacienteId" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label text="ID de Doctor:" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtCitaDoctorId" prefHeight="26.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        </children>
+                                     </GridPane>
+                                     <ToolBar>
+                                        <items>
+                                            <Button onAction="#onAgendarCita" text="Agendar Cita" />
+                                            <Button onAction="#onCancelarCita" text="Cancelar Cita" />
+                                        </items>
+                                     </ToolBar>
+                                 </children>
+                              </VBox>
+                          </center>
+                          <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                          </padding>
+                      </BorderPane>
+                  </content>
+               </Tab>
+               <Tab text="Reportes">
+                  <content>
+                      <BorderPane>
+                          <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                          </padding>
+                          <top>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crear Reporte" BorderPane.alignment="TOP_LEFT">
+                                  <font>
+                                      <Font name="Century Gothic" size="28.0" />
+                                  </font>
+                              </Text>
+                          </top>
+                          <opaqueInsets>
+                              <Insets top="10.0" />
+                          </opaqueInsets>
+                          <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                  <padding>
+                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                  </padding>
+                                 <children>
+                                     <GridPane prefHeight="152.0" prefWidth="617.0" VBox.vgrow="ALWAYS">
+                                         <columnConstraints>
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="303.0" minWidth="10.0" prefWidth="176.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="182.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="494.0" minWidth="10.0" prefWidth="265.0" />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints maxHeight="236.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="360.0" minHeight="0.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                         </rowConstraints>
+                                        <children>
+                                            <Label prefHeight="17.0" prefWidth="110.0" text="Fecha del Reporte:" />
+                                            <DatePicker fx:id="dateFechaReporte" onAction="#onFechaReporte" prefHeight="25.0" prefWidth="182.0" GridPane.columnIndex="1" />
+                                            <Label text="ID del Doctor:" GridPane.rowIndex="2" />
+                                            <TextField fx:id="txtIdDoctorReporte" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            <Label text="ID del Paciente:" GridPane.rowIndex="1" />
+                                            <TextField fx:id="txtIdPacienteReporte" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                            <Label prefHeight="47.0" prefWidth="156.0" text="                " wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                        </children>
+                                     </GridPane>
+                                     <GridPane prefHeight="348.0" prefWidth="617.0">
+                                         <columnConstraints>
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="281.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="32.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="304.0" />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints maxHeight="152.0" minHeight="0.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="338.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
+                                         </rowConstraints>
+                                         <VBox.margin>
+                                             <Insets />
+                                         </VBox.margin>
+                                         <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                         </padding>
+                                        <children>
+                                            <TextArea fx:id="txtEnfermedadesReportes" prefHeight="262.0" prefWidth="281.0" text="separe cada enfermedad con un punto y coma" wrapText="true" GridPane.rowIndex="1" />
+                                            <TextArea fx:id="txtMedicamentosReportes" prefHeight="132.0" prefWidth="325.0" text="separe cada medicamento con un punto y coma" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                            <Label text="Lista de enfermedades:" />
+                                            <Label text="Lista de Medicamentos" GridPane.columnIndex="2" />
+                                        </children>
+                                     </GridPane>
+                                     <Pane prefHeight="45.0" prefWidth="617.0">
+                                        <children>
+                                            <Button alignment="CENTER" layoutX="207.0" layoutY="2.0" onAction="#onAgregarReporte" prefHeight="25.0" prefWidth="204.0" text="Agregar Reporte" />
+                                        </children>
+                                     </Pane>
+                                     <GridPane alignment="CENTER" hgap="10.0" prefHeight="64.0" prefWidth="579.0">
+                                         <columnConstraints>
+                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="157.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="190.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.0" minWidth="10.0" prefWidth="64.0" />
+                                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="73.0" />
+                                         </columnConstraints>
+                                         <rowConstraints>
+                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                         </rowConstraints>
+                                         <padding>
+                                             <Insets top="12.0" />
+                                         </padding>
+                                        <children>
+                                            <Button onAction="#onEliminarReporte" prefHeight="25.0" prefWidth="87.0" text="Eliminar" GridPane.columnIndex="4" />
+                                            <Button mnemonicParsing="false" onAction="#onClonarReporte" prefHeight="25.0" prefWidth="65.0" text="Clonar" GridPane.columnIndex="3" />
+                                            <Label prefHeight="34.0" prefWidth="106.0" text="Eliminar o Clonar Reporte" wrapText="true" />
+                                            <TextField fx:id="txtIdPacienteEliminarClonar" prefHeight="25.0" prefWidth="191.0" text="ID Paciente" GridPane.columnIndex="2" />
+                                            <DatePicker fx:id="dateEliminarClonarReporte" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" />
+                                        </children>
+                                     </GridPane>
+                                 </children>
+                              </VBox>
+                          </center>
+                      </BorderPane>
+                  </content>
+               </Tab>
+               <Tab text="Configuración">
+                  <content>
+                      <BorderPane>
+                          <center>
+                              <GridPane alignment="CENTER" prefHeight="551.0" prefWidth="208.0">
+                                  <columnConstraints>
+                                      <ColumnConstraints percentWidth="64.0" />
+                                      <ColumnConstraints percentWidth="36.0" />
+                                  </columnConstraints>
+      
+                                  <rowConstraints>
+                                      <RowConstraints percentHeight="100" />
+                                  </rowConstraints>
+                                 <children>
+                                     <VBox spacing="10.0" GridPane.columnIndex="1">
+                                         <GridPane.margin>
+                                             <Insets />
+                                         </GridPane.margin>
+                                         <padding>
+                                             <Insets left="10.0" right="10.0" top="20.0" />
+                                         </padding>
+                                        <children>
+                                            <Label text="Editor de Configuración">
+                                                <font>
+                                                    <Font name="Century Gothic" size="17.0" />
+                                                </font>
+                                            </Label>
+                                            <Label text="Horario de Atención:" />
+                                            <TextField fx:id="txtHorarioAtencion" />
+                                            <Label text="Máx. Pacientes por Médico:" />
+                                            <TextField fx:id="txtMaxPacientes" prefHeight="26.0" prefWidth="51.0" />
+                                            <Label text="Reglas de Facturación:" />
+                                            <TextArea fx:id="txtReglasFacturacion" text="separe cada regla con un punto y coma" wrapText="true" />
+                                            <Button onAction="#onGuardarConfiguracion" text="Guardar" />
+                                        </children>
+                                     </VBox>
+                                     <VBox prefHeight="200.0" prefWidth="100.0">
+                                         <padding>
+                                             <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                                         </padding>
+                                        <children>
+                                            <Label text="Informacion del Hospital">
+                                                <font>
+                                                    <Font name="Century Gothic" size="24.0" />
+                                                </font>
+                                            </Label>
+                                            <Text fx:id="txtInfoHospital" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="386.9367198944092" />
+                                        </children>
+                                     </VBox>
+                                 </children>
+                              </GridPane>
+                          </center>
+                          <padding>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                          </padding>
+                      </BorderPane>
+                  </content>
+               </Tab>
+           </tabs>
         </TabPane>
     </center>
    <top>

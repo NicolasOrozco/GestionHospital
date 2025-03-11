@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reporte implements ClonableReporte, Cloneable{
+public class Reporte implements Cloneable{
     private LocalDate fechaConsulta;
     private Paciente paciente;
     private Doctor doctor;

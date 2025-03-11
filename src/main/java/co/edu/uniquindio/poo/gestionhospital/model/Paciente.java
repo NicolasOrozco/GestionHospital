@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.gestionhospital.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class Paciente extends Persona {
 
@@ -28,6 +29,11 @@ public class Paciente extends Persona {
      */
     public int calcularEdad() {
         return Period.between(this.fechaNacimiento, LocalDate.now()).getYears();
+    }
+
+    public String obtenerNombreSinApellido(){
+        String nombreSinApellido = getNombre().toLowerCase().split(" ")[0];
+        return nombreSinApellido;
     }
 
     //--------------Getters y Setters de la clase---------------//
