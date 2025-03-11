@@ -42,9 +42,9 @@ public class GestorConfiguracion {
      * @return
      */
     public String configuracionActualString(){
-        StringBuilder configuracion = new StringBuilder("Horario de atencion: " + horarioAtencion + "\n" +
-                "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" +
-                "Reglas de facturacion: " + "\n");
+        StringBuilder configuracion = new StringBuilder("Horario de atencion: " + horarioAtencion + "\n" + "\n" +
+                "Maximo de pacientes por medico: " + maxPacientesPorMedico + "\n" + "\n" +
+                "Reglas de facturacion: " + "\n" + "\n");
 
         for (String regla : reglasFacturacion) {
             configuracion.append("- ").append(regla).append("\n");

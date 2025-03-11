@@ -18,6 +18,19 @@ public class Cita {
         this.fecha = fecha;
         this.paciente = paciente;
         this.doctor = doctor;
+        paciente.getCitas().add(this);
+        doctor.getCitas().add(this);
+    }
+
+    public String citaToString(){
+        StringBuilder cita = new StringBuilder();
+
+        cita.append("Cita Medica: ")
+                .append("fecha: " + fecha + "\n")
+                .append("Paciente: " + paciente.getNombre() + "\n")
+                .append("Doctor: " + doctor.getNombre() + "\n");
+
+        return cita.toString();
     }
 
     //--------------Getters y Setters de la clase---------------//

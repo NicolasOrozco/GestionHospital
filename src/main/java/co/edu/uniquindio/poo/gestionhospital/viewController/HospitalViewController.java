@@ -1,19 +1,16 @@
 package co.edu.uniquindio.poo.gestionhospital.viewController;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.ResourceBundle;
 
 import co.edu.uniquindio.poo.gestionhospital.controller.HospitalController;
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import co.edu.uniquindio.poo.gestionhospital.app.App;
+import co.edu.uniquindio.poo.gestionhospital.app.HospitalApp;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -22,22 +19,18 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import javax.swing.*;
+
 public class HospitalViewController {
-    private ObservableList<Doctor> listDoctores = FXCollections.observableArrayList();
-    private ObservableList<Paciente> listPacientes = FXCollections.observableArrayList();
-    private ObservableList<Cita> listCitas = FXCollections.observableArrayList();
+    private final ObservableList<Doctor> listDoctores = FXCollections.observableArrayList();
+    private final ObservableList<Paciente> listPacientes = FXCollections.observableArrayList();
+    private final ObservableList<Cita> listCitas = FXCollections.observableArrayList();
     private Doctor selectedDoctor;
     private Paciente selectedPaciente;
     private Cita selectedCita;
 
-    public App app;
+    public HospitalApp HospitalApp;
     public HospitalController hospitalController;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
 
     //==========================PACIENTE==========================//
@@ -130,6 +123,15 @@ public class HospitalViewController {
         listPacientes.setAll(pacientes);
 
     }
+    public void cargarPacientesPalindromos(){
+        Collection<Paciente> pacientesPalindromos = hospitalController.obtenerPacientesPalindromos();
+        listPacientes.setAll(pacientesPalindromos);
+    }
+    public void cargarPacientesVocalesRepetidas(){
+        Collection<Paciente> pacientesVocalesRepetidas = hospitalController.obtenerPacientesVocalesRepetidas();
+        listPacientes.setAll(pacientesVocalesRepetidas);
+    }
+
     public void cargarDoctores(){
         Collection<Doctor> doctores = hospitalController.obtenerDoctores();
         listDoctores.setAll(doctores);
@@ -145,11 +147,17 @@ public class HospitalViewController {
     public Doctor buildDoctor() {
         return new Doctor(txtDoctorNombre.getText(), txtDoctorId.getText(), txtDoctorEspecialidad.getText());
     }
+    public Reporte buildReporte() {
+        return new Reporte(dateFechaReporte.getValue(), hospitalController.buscarPaciente(txtIdPacienteReporte.getText()),
+                hospitalController.buscarDoctor(txtIdDoctorReporte.getText()), convertirStringALista(txtEnfermedadesReportes.getText()),
+                convertirStringALista(txtMedicamentosReportes.getText()));
+    }
+
 
     //==========================PACIENTE==========================//
 
     @FXML
-    void onBuscarPaciente(ActionEvent event) {
+    void onBuscarPaciente() {
         String idBuscar = txtIdPacienteBuscar.getText();
         if(!idBuscar.isEmpty()){
             Paciente pacienteEncontrado = hospitalController.buscarPaciente(idBuscar);
@@ -161,13 +169,13 @@ public class HospitalViewController {
     }
 
     @FXML
-    void onAgregarPaciente(ActionEvent event) {
+    void onAgregarPaciente() {
         hospitalController.agregarPaciente(buildPaciente());
-        initDataBinding();
+        cargarPacientes();
     }
 
     @FXML
-    void onEditarPaciente(ActionEvent event) {
+    void onEditarPaciente() {
         Paciente pacienteSeleccionado = selectedPaciente;
         Paciente pacienteActual = buildPaciente();
         if (pacienteSeleccionado != null) {
@@ -177,12 +185,24 @@ public class HospitalViewController {
     }
 
     @FXML
-    void onVerCitasEHistorialPaciente(ActionEvent event) {
+    void onVerCitasEHistorialPaciente() {
+        String id = txtPacienteId.getText();
+        String historial = hospitalController.verHistorialPaciente(id);
 
+        JFrame frame = new JFrame("Historial del paciente");
+        JTextArea textArea = new JTextArea(20,50);
+        textArea.setText(historial);
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.setSize(600,400);
+        frame.add(scrollPane);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
     @FXML
-    void onEliminarPaciente(ActionEvent event) {
+    void onEliminarPaciente() {
         Paciente pacienteSeleccionado = selectedPaciente;
         if(pacienteSeleccionado != null){
             hospitalController.eliminarPaciente(pacienteSeleccionado.getId());
@@ -193,7 +213,7 @@ public class HospitalViewController {
     //===========================DOCTOR===========================//
 
     @FXML
-    void onBuscarDoctor(ActionEvent event) {
+    void onBuscarDoctor() {
         String idBuscar = txtIdBuscarDoctor.getText();
         if(!idBuscar.isEmpty()){
             Doctor doctorEncontrado = hospitalController.buscarDoctor(idBuscar);
@@ -204,13 +224,13 @@ public class HospitalViewController {
         }
     }
     @FXML
-    void onAgregarDoctor(ActionEvent event) {
+    void onAgregarDoctor() {
         hospitalController.agregarDoctor(buildDoctor());
-        initDataBinding();
+        cargarDoctores();
     }
 
     @FXML
-    void onEditarDoctor(ActionEvent event) {
+    void onEditarDoctor() {
         Doctor doctorSeleccionado = selectedDoctor;
         Doctor doctorActual = buildDoctor();
         if (doctorSeleccionado != null) {
@@ -220,7 +240,7 @@ public class HospitalViewController {
     }
 
     @FXML
-    void onEliminarDoctor(ActionEvent event) {
+    void onEliminarDoctor() {
         Doctor doctorSeleccionado = selectedDoctor;
         if(doctorSeleccionado != null){
             hospitalController.eliminarDoctor(doctorSeleccionado.getId());
@@ -232,46 +252,69 @@ public class HospitalViewController {
     //============================CITA============================//
 
     @FXML
-    void onAgendarCita(ActionEvent event) {
-        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), hospitalController.buscarDoctor(txtDoctorId.getText()));
-        initDataBinding();
+    void onAgendarCita() {
+        hospitalController.agendarCita(dateCita.getValue(), hospitalController.buscarPaciente(txtCitaPacienteId.getText()), hospitalController.buscarDoctor(txtCitaDoctorId.getText()));
+        cargarCitas();
     }
     @FXML
-    void onCancelarCita(ActionEvent event) {
+    void onCancelarCita() {
         Cita citaSeleccionada = selectedCita;
         hospitalController.cancelarCita(citaSeleccionada);
-        initDataBinding();
+        cargarCitas();
     }
 
 
     //===========================REPORTE==========================//
 
     @FXML
-    void onAgregarReporte(ActionEvent event) {
-        hospitalController.agregarReporteAHistorial(hospitalController.buscarReporte(dateFechaReporte.getValue(), txtIdPacienteReporte.getText()), txtIdPacienteReporte.getText());
+    void onAgregarReporte() {
+        hospitalController.agregarReporteAHistorial(buildReporte(), txtIdPacienteReporte.getText());
         initDataBinding();
     }
 
     @FXML
-    void onEliminarReporte(ActionEvent event) {
+    void onEliminarReporte() {
+        hospitalController.eliminarReporteDelHistorial(dateEliminarClonarReporte.getValue(), txtIdPacienteEliminarClonar.getText());
 
     }
 
     @FXML
-    void onClonarReporte(ActionEvent event) {
-        //hospitalController.clonarReporte()
+    void onClonarReporte() {
+        hospitalController.clonarReporte(dateEliminarClonarReporte.getValue(), txtIdPacienteEliminarClonar.getText());
     }
 
     @FXML
-    public void onFechaReporte(ActionEvent actionEvent) {
+    public void onFechaReporte() {//?????
+    }
+
+
+
+    //=============================EXTRA==========================//
+    @FXML
+    void onRecargarListaPacientes() {
+        cargarPacientes();
+    }
+
+    @FXML
+    void onCargarPacientesPalindromos() {
+        cargarPacientesPalindromos();
+    }
+
+    @FXML
+    void onCargarPacientesVocalesRepetidas() {
+        cargarPacientesVocalesRepetidas();
     }
 
     //========================CONFIGURACION=======================//
 
     @FXML
-    void onGuardarConfiguracion(ActionEvent event) {
+    void onGuardarConfiguracion() {
         hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), txtReglasFacturacion.getText());
         initDataBinding();
+        mostrarConfiguracion();
+    }
+    void mostrarConfiguracion(){
+        txtInfoHospital.setText(hospitalController.configuracionActual());
     }
     //mostrar config
 
@@ -298,7 +341,7 @@ public class HospitalViewController {
 
     @FXML
     void initialize() {
-        hospitalController = new HospitalController(app.hospital);
+        hospitalController = new HospitalController(HospitalApp.hospital);
         initView();
     }
 
@@ -311,6 +354,7 @@ public class HospitalViewController {
         tablaDoctores.setItems(listDoctores);
         tablaPacientes.setItems(listPacientes);
         listenerSelection();
+        mostrarConfiguracion();
     }
     private void listenerSelection()
     {
@@ -358,9 +402,6 @@ public class HospitalViewController {
         colDoctorCita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDoctor().getNombre()));
 
         // Puedes agregar más enlaces para otros controles según sea necesario
-    }
-    public void setApp(App app){
-        this.app = app;
     }
 
 }

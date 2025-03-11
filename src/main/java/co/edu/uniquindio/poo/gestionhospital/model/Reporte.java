@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Reporte implements ClonableReporte, Cloneable{
+public class Reporte implements Cloneable{
     private LocalDate fechaConsulta;
     private Paciente paciente;
     private Doctor doctor;
@@ -40,7 +40,20 @@ public class Reporte implements ClonableReporte, Cloneable{
             throw new RuntimeException("Error cloning Reporte");
         }
     }
-
+    public String reporteToString(int n) {
+        StringBuilder reporte = new StringBuilder();
+        reporte.append("----------Reporte-n"+n+"---------\n")
+                .append("Fecha de consulta: " + fechaConsulta + "\n")
+                .append("Paciente: " + paciente.getNombre() + "\n")
+                .append("Doctor: " + doctor.getNombre() + "Especialidad: " + doctor.getEspecialidad() + "\n")
+                .append("Edad: " + edadPacienteEnConsulta + "\n")
+                .append("Enfermedades: " + enfermedades + "\n")
+                .append(String.join("\n", enfermedades)).append("\n")
+                .append("Medicamentos: " + medicamentos + "\n")
+                .append(String.join("\n", medicamentos)).append("\n")
+                .append("-----------------------------");
+        return reporte.toString();
+    }
 
     //-----------------Getters y Setters----------------------//
 

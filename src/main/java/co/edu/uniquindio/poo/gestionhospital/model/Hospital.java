@@ -11,6 +11,7 @@ public class Hospital {
     public LinkedList<Paciente> pacientes;
     protected GestorConfiguracion gestorConfiguracion;
     protected GestorCitas gestorCitas;
+    private String id;
 
     /**
      * Constructor público de la clase Hospital
@@ -105,6 +106,11 @@ public class Hospital {
         }
     }
 
+    public String historialPaciente(String id) {
+        Paciente paciente = buscarPaciente(id);
+        return paciente.obtenerHistorialMedico();
+
+    }
     //----------------------------------------------------------//
 
     //----------------------CRUD Doctor-------------------------//
@@ -203,13 +209,15 @@ public class Hospital {
         }
 
         Paciente pacienteActual = buscarPaciente(idPaciente);
+        if (pacienteActual == null) { // Verificamos si el paciente existe
+            throw new NoSuchElementException("No se encontró un paciente con el ID proporcionado.");
+        }
 
         for (Reporte reporte : pacienteActual.getHistorial()) {
             if (reporte.getFechaConsulta().equals(fechaConsulta)) {
-                return reporte; // Retorna inmediatamente si encuentra el reporte
+                return reporte; // Retorna el reporte si se encuentra
             }
         }
-
         throw new NoSuchElementException("No existe un reporte con la información ingresada.");
     }
 
@@ -220,7 +228,7 @@ public class Hospital {
      */
     public void agregarReporteAHistorial(Reporte reporte, String idPaciente) {
         Paciente paciente = buscarPaciente(idPaciente);
-        if(paciente == null && reporte == null) {
+        if(paciente == null || reporte == null) {
             throw new IllegalArgumentException("No se ingresó el paciente o el reporte");
         }
         paciente.getHistorial().add(reporte);
@@ -250,13 +258,13 @@ public class Hospital {
      * Metodo para obtener una lista con nombres palíndromos de la lista de pacientes.
      * @return palindromos Lista de nombres palíndromos de entre los pacientes.
      */
-    public LinkedList<String> obtenerPacientesNombresPalindromos(){
+    public LinkedList<Paciente> obtenerPacientesNombresPalindromos(){
 
-        LinkedList<String> palindromos = new LinkedList<>();
+        LinkedList<Paciente> palindromos = new LinkedList<>();
 
         for(Paciente paciente : pacientes){
-            if(esPalindromo(paciente.getNombre())){
-                palindromos.add(paciente.getNombre());
+            if(esPalindromo(paciente.getNombre().toLowerCase())){
+                palindromos.add(paciente);
             }
         }
 
@@ -286,13 +294,13 @@ public class Hospital {
      * Metodo para obtener una lista de nombres con dos vocales iguales de la lista de pacientes.
      * @return vocalesIguales Lista de nombres con dos vocales iguales de entre los pacientes.
      */
-    public LinkedList<String> obtenerPacientesNombreDosVocalesIguales(){
+    public LinkedList<Paciente> obtenerPacientesNombreDosVocalesIguales(){
 
-        LinkedList<String> vocalesIguales = new LinkedList<>();
+        LinkedList<Paciente> vocalesIguales = new LinkedList<>();
 
         for(Paciente paciente : pacientes){
-            if(nombreDosVocalesIguales(paciente.getNombre())){
-                vocalesIguales.add(paciente.getNombre());
+            if(nombreDosVocalesIguales(paciente.obtenerNombreSinApellido())){
+                vocalesIguales.add(paciente);
             }
         }
 

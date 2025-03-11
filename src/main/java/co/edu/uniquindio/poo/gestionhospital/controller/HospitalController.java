@@ -2,11 +2,9 @@ package co.edu.uniquindio.poo.gestionhospital.controller;
 
 
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import com.sun.source.doctree.DocTree;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.LinkedList;
 
 public class HospitalController {
     Hospital hospital;
@@ -19,10 +17,16 @@ public class HospitalController {
     public Collection<Paciente> obtenerPacientes() {
         return hospital.getPacientes();
     }
+    public Collection<Paciente> obtenerPacientesPalindromos(){
+        return hospital.obtenerPacientesNombresPalindromos();
+    }
+    public Collection<Paciente> obtenerPacientesVocalesRepetidas(){
+        return hospital.obtenerPacientesNombreDosVocalesIguales();
+    }
     public Collection<Doctor> obtenerDoctores() {
         return hospital.getDoctores();
     }
-    public  Collection<Cita> obtenerCitas(){
+    public Collection<Cita> obtenerCitas(){
         return  hospital.getGestorCitas().getCitas();
     }
 
@@ -39,6 +43,7 @@ public class HospitalController {
     public void eliminarPaciente(String id) {
         hospital.eliminarPaciente(id);
     }
+    public String verHistorialPaciente(String id) { return hospital.historialPaciente(id);}
 
     //============================DOCTOR==========================//
     public Doctor buscarDoctor(String id) {
@@ -72,11 +77,17 @@ public class HospitalController {
     public void eliminarReporteDelHistorial(LocalDate fechaConsulta, String idPaciente) {
         hospital.eliminarReporteDelHistorial(fechaConsulta, idPaciente);
     }
-    /**
-     *public Reporte clonarReporte(Reporte reporte){
-     *         return reporte.clone();
-     *     }
-     */
+
+     public void clonarReporte(LocalDate fechaConsulta, String idPaciente) {
+              Reporte reporteClonado = buscarReporte(fechaConsulta,idPaciente).clonar();
+              agregarReporteAHistorial(reporteClonado,idPaciente);
+          }
+
+
+    //=============================EXTRA==========================//
+
+
+
 
     //======================CONFIGURACION=========================//
     public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, String reglasFacturacion){
@@ -84,6 +95,9 @@ public class HospitalController {
         gestor.setHorarioAtencion(horarioAtencion);
         gestor.setMaxPacientesPorMedico(maxPacientesPorMedico);
         //Como editar las reglas de facturacion??
+    }
+    public String configuracionActual(){
+        return hospital.getGestorConfiguracion().configuracionActualString();
     }
 
 }

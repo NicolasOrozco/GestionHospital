@@ -19,6 +19,7 @@ public class Doctor extends Persona {
         citas = new LinkedList<>();
     }
 
+
     //--------------Getters y Setters de la clase---------------//
 
     public String getEspecialidad() {
