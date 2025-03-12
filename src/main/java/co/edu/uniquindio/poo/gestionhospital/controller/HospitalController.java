@@ -89,6 +89,11 @@ public class HospitalController {
 
 
 
+    //=============================EXTRA==========================//
+
+
+
+
     //======================CONFIGURACION=========================//
     public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, String reglasFacturacion){
         GestorConfiguracion gestor = hospital.getGestorConfiguracion();
