@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import co.edu.uniquindio.poo.gestionhospital.viewController.*;
 
 public class HospitalApp extends Application {
 
