@@ -263,7 +263,7 @@ public class Hospital {
         LinkedList<Paciente> palindromos = new LinkedList<>();
 
         for(Paciente paciente : pacientes){
-            if(esPalindromo(paciente.getNombre().toLowerCase())){
+            if(esPalindromo(paciente.obtenerNombreSinApellido())){
                 palindromos.add(paciente);
             }
         }
