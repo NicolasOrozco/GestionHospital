@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="716.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.viewController.HospitalViewController">
+<BorderPane prefHeight="716.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.gestionhospital.viewController.HospitalViewController">
     <center>
         <TabPane>
            <tabs>
@@ -158,10 +158,10 @@
                                  <children>
                                      <TableView fx:id="tablaCitas" prefHeight="463.0" prefWidth="637.0">
                                          <columns>
-                                             <TableColumn fx:id="colFechaCita" prefWidth="155.19995725154877" text="Fecha" />
-                                             <TableColumn fx:id="colIdPacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="ID Paciente" />
-                                             <TableColumn fx:id="colNombrePacienteCita" minWidth="9.5999755859375" prefWidth="171.199951171875" text="Nombre del Paciente" />
-                                             <TableColumn fx:id="colDoctorCita" minWidth="4.79998779296875" prefWidth="152.800048828125" text="Doctor" />
+                                             <TableColumn fx:id="colFechaCita" prefWidth="149.0" text="Fecha" />
+                                             <TableColumn fx:id="colIdPacienteCita" minWidth="9.5999755859375" prefWidth="148.0" text="ID Paciente" />
+                                             <TableColumn fx:id="colNombrePacienteCita" minWidth="9.5999755859375" prefWidth="168.0" text="Nombre del Paciente" />
+                                             <TableColumn fx:id="colDoctorCita" minWidth="4.79998779296875" prefWidth="188.0" text="Doctor" />
                                          </columns>
                                      </TableView>
                                      <GridPane alignment="CENTER" hgap="10" prefHeight="152.0" prefWidth="637.0" vgap="10" VBox.vgrow="ALWAYS">
@@ -342,7 +342,10 @@
                                             <Label text="Máx. Pacientes por Médico:" />
                                             <TextField fx:id="txtMaxPacientes" prefHeight="26.0" prefWidth="51.0" />
                                             <Label text="Reglas de Facturación:" />
-                                            <TextArea fx:id="txtReglasFacturacion" text="separe cada regla con un punto y coma" wrapText="true" />
+                                            <TextArea fx:id="txtReglasFacturacion" promptText="Separe cada regla con un punto y coma" wrapText="true">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font></TextArea>
                                             <Button onAction="#onGuardarConfiguracion" text="Guardar" />
                                         </children>
                                      </VBox>
