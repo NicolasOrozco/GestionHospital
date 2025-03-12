@@ -5,6 +5,7 @@ import co.edu.uniquindio.poo.gestionhospital.model.*;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class HospitalController {
     Hospital hospital;
@@ -95,11 +96,11 @@ public class HospitalController {
 
 
     //======================CONFIGURACION=========================//
-    public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, String reglasFacturacion){
+    public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, LinkedList<String> reglasFacturacion){
         GestorConfiguracion gestor = hospital.getGestorConfiguracion();
         gestor.setHorarioAtencion(horarioAtencion);
         gestor.setMaxPacientesPorMedico(maxPacientesPorMedico);
-        //Como editar las reglas de facturacion??
+        gestor.setReglasFacturacion(reglasFacturacion);
     }
     public String configuracionActual(){
         return hospital.getGestorConfiguracion().configuracionActualString();

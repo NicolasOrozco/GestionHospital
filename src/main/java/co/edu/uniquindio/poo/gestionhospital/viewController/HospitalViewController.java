@@ -309,7 +309,7 @@ public class HospitalViewController {
 
     @FXML
     void onGuardarConfiguracion() {
-        hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), txtReglasFacturacion.getText());
+        hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), convertirStringALista(txtReglasFacturacion.getText()));
         initDataBinding();
         mostrarConfiguracion();
     }
