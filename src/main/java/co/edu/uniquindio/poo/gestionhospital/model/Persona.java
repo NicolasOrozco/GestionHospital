@@ -1,16 +1,15 @@
 package co.edu.uniquindio.poo.gestionhospital.model;
 
-import java.util.LinkedList;
-
 public class Persona {
 
     private String nombre;
     private String id;
 
     /**
-     * Método constructor de la clase Persona
-     * @param nombre Nombre de la persona
-     * @param id Número de identificación de la persona
+     * Constructor de Persona que inicializa su nombre e identificación
+     *
+     * @param nombre el nombre de la persona
+     * @param id     el identificador único de la persona
      */
     public Persona(String nombre, String id) {
         this.nombre = nombre;

@@ -9,7 +9,8 @@ public class Cita {
     private Doctor doctor;
 
     /**
-     * Metodo constructor de la clase Cita
+     * Constructor de la clase Cita
+     *
      * @param fecha Fecha de la cita
      * @param paciente Paciente que asistirá
      * @param doctor Doctor que atenderá
@@ -22,15 +23,16 @@ public class Cita {
         doctor.getCitas().add(this);
     }
 
+    /**
+     * Convierte la información de la cita médica en una cadena de texto formateada
+     *
+     * @return una cadena que representa la cita médica con la fecha, el paciente y el doctor
+     */
     public String citaToString(){
-        StringBuilder cita = new StringBuilder();
-
-        cita.append("Cita Medica: ")
-                .append("fecha: " + fecha + "\n")
-                .append("Paciente: " + paciente.getNombre() + "\n")
-                .append("Doctor: " + doctor.getNombre() + "\n");
-
-        return cita.toString();
+        return "Cita Medica: " +
+                "fecha: " + fecha + "\n" +
+                "Paciente: " + paciente.getNombre() + "\n" +
+                "Doctor: " + doctor.getNombre() + "\n";
     }
 
     //--------------Getters y Setters de la clase---------------//

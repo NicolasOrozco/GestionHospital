@@ -2,7 +2,6 @@ package co.edu.uniquindio.poo.gestionhospital.model;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Reporte implements Cloneable{
     private LocalDate fechaConsulta;
@@ -12,6 +11,15 @@ public class Reporte implements Cloneable{
     private LinkedList<String> enfermedades;
     private LinkedList<String> medicamentos;
 
+    /**
+     * Constructor de Reporte que inicializa la información de una consulta médica
+     *
+     * @param fechaConsulta  la fecha en que se realizó la consulta
+     * @param paciente       el paciente atendido en la consulta
+     * @param doctor         el doctor que realizó la consulta
+     * @param enfermedades   la lista de enfermedades diagnosticadas
+     * @param medicamentos   la lista de medicamentos recetados
+     */
     public Reporte(LocalDate fechaConsulta, Paciente paciente, Doctor doctor, LinkedList<String> enfermedades, LinkedList<String> medicamentos) {
         this.fechaConsulta = fechaConsulta;
         this.paciente = paciente;
@@ -22,6 +30,13 @@ public class Reporte implements Cloneable{
     }
 
 
+    /**
+     * Crea una copia del reporte actual incluyendo sus listas de enfermedades y medicamentos,
+     * así como copias de los objetos Paciente y Doctor
+     *
+     * @return una nueva instancia de Reporte idéntica al original
+     * @throws RuntimeException si ocurre un error al clonar el objeto
+     */
     public Reporte clonar() {
         Reporte copia = null;
 
@@ -40,19 +55,25 @@ public class Reporte implements Cloneable{
             throw new RuntimeException("Error cloning Reporte");
         }
     }
+
+    /**
+     * Genera una representación en texto del reporte médico con el número de consulta
+     *
+     * @param n el número de reporte dentro del historial del paciente
+     * @return una cadena con la información de la consulta, incluyendo fecha, paciente,
+     * doctor, edad del paciente, enfermedades y medicamentos
+     */
     public String reporteToString(int n) {
-        StringBuilder reporte = new StringBuilder();
-        reporte.append("----------Reporte-n"+n+"---------\n")
-                .append("Fecha de consulta: " + fechaConsulta + "\n")
-                .append("Paciente: " + paciente.getNombre() + "\n")
-                .append("Doctor: " + doctor.getNombre() + "Especialidad: " + doctor.getEspecialidad() + "\n")
-                .append("Edad: " + edadPacienteEnConsulta + "\n")
-                .append("Enfermedades: " + enfermedades + "\n")
-                .append(String.join("\n", enfermedades)).append("\n")
-                .append("Medicamentos: " + medicamentos + "\n")
-                .append(String.join("\n", medicamentos)).append("\n")
-                .append("-----------------------------");
-        return reporte.toString();
+        return "----------Reporte-n" + n + "---------\n" +
+                "Fecha de consulta: " + fechaConsulta + "\n" +
+                "Paciente: " + paciente.getNombre() + "\n" +
+                "Doctor: " + doctor.getNombre() + "Especialidad: " + doctor.getEspecialidad() + "\n" +
+                "Edad: " + edadPacienteEnConsulta + "\n" +
+                "Enfermedades: " + enfermedades + "\n" +
+                String.join("\n", enfermedades) + "\n" +
+                "Medicamentos: " + medicamentos + "\n" +
+                String.join("\n", medicamentos) + "\n" +
+                "-----------------------------";
     }
 
     //-----------------Getters y Setters----------------------//

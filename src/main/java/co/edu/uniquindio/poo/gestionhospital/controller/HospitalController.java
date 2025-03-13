@@ -64,8 +64,8 @@ public class HospitalController {
     public void agendarCita( LocalDate fecha, Paciente paciente, Doctor doctor){
         hospital.getGestorCitas().agendarCita(fecha,paciente,doctor);
     }
-    public boolean cancelarCita(Cita cita){
-        return hospital.getGestorCitas().cancelarCita(cita);
+    public void cancelarCita(Cita cita){
+        hospital.getGestorCitas().cancelarCita(cita);
     }
 
     //===========================REPORTE==========================//
@@ -83,17 +83,6 @@ public class HospitalController {
               Reporte reporteClonado = buscarReporte(fechaConsulta,idPaciente).clonar();
               agregarReporteAHistorial(reporteClonado,idPaciente);
           }
-
-
-    //=============================EXTRA==========================//
-
-
-
-
-    //=============================EXTRA==========================//
-
-
-
 
     //======================CONFIGURACION=========================//
     public void guardarConfiguracionHospital(String horarioAtencion, String maxPacientesPorMedico, LinkedList<String> reglasFacturacion){

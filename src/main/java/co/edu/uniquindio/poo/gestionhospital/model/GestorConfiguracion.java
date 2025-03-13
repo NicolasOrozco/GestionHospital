@@ -10,8 +10,8 @@ public class GestorConfiguracion {
     private LinkedList<String> reglasFacturacion;
 
     /**
-     * Método constructor privado para evitar la instanciación directa fuera de esta clase
-     *
+     * Constructor privado de GestorConfiguracion para aplicar el patrón Singleton
+     * Inicializa los valores predeterminados de configuración
      */
     private GestorConfiguracion() {
         horarioAtencion = "8:00 a 20:00";
@@ -24,9 +24,10 @@ public class GestorConfiguracion {
     }
 
     /**
-     * Método estático que devuelve la única instancia de la clase gestorConfiguaracion
-     * Si la instancia no existe, se crea.
-     * @return instancia única del gestor
+     * Obtiene la instancia única de GestorConfiguracion
+     * Si no existe, crea una nueva instancia
+     *
+     * @return la única instancia de GestorConfiguracion
      */
     public static GestorConfiguracion getInstancia() {
         if (instancia == null) {
@@ -35,11 +36,10 @@ public class GestorConfiguracion {
         return instancia;
     }
 
-
     /**
+     * Genera una representación en texto de la configuración actual
      *
-     *
-     * @return
+     * @return una cadena con el horario de atención, el máximo de pacientes por médico y las reglas de facturación
      */
     public String configuracionActualString(){
         StringBuilder configuracion = new StringBuilder("Horario de atencion: " + horarioAtencion + "\n" + "\n" +
@@ -54,7 +54,6 @@ public class GestorConfiguracion {
     }
 
     //--------------Getters y Setters de la clase---------------//
-
 
     public String getHorarioAtencion() {
         return horarioAtencion;

@@ -3,7 +3,6 @@ package co.edu.uniquindio.poo.gestionhospital.model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.LinkedList;
-import java.util.Locale;
 
 public class Paciente extends Persona {
 
@@ -12,10 +11,14 @@ public class Paciente extends Persona {
     private LinkedList<Reporte> historial;
 
     /**
-     * Método constructor de la clase Paciente
-     * @param nombre Nombre del paciente
-     * @param id Número de identificación del paciente
+     * Constructor de Paciente que inicializa su nombre, ID, fecha de nacimiento,
+     * lista de citas e historial médico
+     *
+     * @param nombre          el nombre del paciente
+     * @param id              el identificador único del paciente
+     * @param fechaNacimiento la fecha de nacimiento del paciente
      */
+
     public Paciente (String nombre, String id, LocalDate fechaNacimiento) {
         super(nombre, id);
         citas = new LinkedList<>();
@@ -24,18 +27,29 @@ public class Paciente extends Persona {
     }
 
     /**
-     * Metodo para obtener la edad del paciente
-     * @return edad actual del paciente
+     * Calcula la edad del paciente a partir de su fecha de nacimiento
+     *
+     * @return la edad del paciente en años
      */
+
     public int calcularEdad() {
         return Period.between(this.fechaNacimiento, LocalDate.now()).getYears();
     }
 
+    /**
+     * Obtiene el primer nombre del paciente sin incluir apellidos
+     *
+     * @return el primer nombre del paciente en minúsculas
+     */
     public String obtenerNombreSinApellido(){
-        String nombreSinApellido = getNombre().toLowerCase().split(" ")[0];
-        return nombreSinApellido;
+        return getNombre().toLowerCase().split(" ")[0];
     }
 
+    /**
+     * Genera una representación en texto del historial médico del paciente
+     *
+     * @return una cadena con los reportes médicos numerados
+     */
     public String obtenerHistorialMedico(){
         int i  =1;
         StringBuilder historialMedico = new StringBuilder();

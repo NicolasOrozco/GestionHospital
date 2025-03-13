@@ -28,10 +28,8 @@ public class HospitalViewController {
     private Doctor selectedDoctor;
     private Paciente selectedPaciente;
     private Cita selectedCita;
-
     public HospitalApp HospitalApp;
     public HospitalController hospitalController;
-
 
     //==========================PACIENTE==========================//
     @FXML
@@ -52,109 +50,6 @@ public class HospitalViewController {
     private TextField txtNombrePaciente;
     @FXML
     private TextField txtPacienteId;
-
-    //============================DOCTOR==========================//
-    @FXML
-    private TableColumn<Doctor, String> colDoctorEspecialidad;
-    @FXML
-    private TableColumn<Doctor, String> colDoctorId;
-    @FXML
-    private TableColumn<Doctor, String> colDoctorNombre;
-    @FXML
-    private TableView<Doctor> tablaDoctores;
-    @FXML
-    private TextField txtDoctorEspecialidad;
-    @FXML
-    private TextField txtDoctorId;
-    @FXML
-    private TextField txtDoctorNombre;
-    @FXML
-    private TextField txtIdBuscarDoctor;
-
-    //=============================CITA===========================//
-    @FXML
-    private TableColumn<Cita, String> colDoctorCita;
-    @FXML
-    private TableColumn<Cita, LocalDate> colFechaCita;
-    @FXML
-    private TableColumn<Cita, String> colIdPacienteCita;
-    @FXML
-    private TableColumn<Cita, String> colNombrePacienteCita;
-    @FXML
-    private TextField txtCitaDoctorId;
-    @FXML
-    private DatePicker dateCita;
-    @FXML
-    private TableView<Cita> tablaCitas;
-
-    //===========================REPORTE==========================//
-    @FXML
-    private DatePicker dateFechaReporte;
-    @FXML
-    private TextField txtIdDoctorReporte;
-    @FXML
-    private TextField txtIdPacienteReporte;
-    @FXML
-    private TextArea txtEnfermedadesReportes;
-    @FXML
-    private TextArea txtMedicamentosReportes;
-    @FXML
-    private TextField txtIdPacienteEliminarClonar;
-    @FXML
-    public DatePicker dateEliminarClonarReporte;
-
-
-    //======================CONFIGURACION=========================//
-    @FXML
-    private Text txtInfoHospital;
-    @FXML
-    private TextField txtHorarioAtencion;
-    @FXML
-    private TextField txtMaxPacientes;
-    @FXML
-    private TextArea txtReglasFacturacion;
-
-
-    //METODOS:
-
-    //============================LISTAS BUILDS==========================//
-    public void cargarPacientes(){
-        Collection<Paciente> pacientes = hospitalController.obtenerPacientes();
-        listPacientes.setAll(pacientes);
-
-    }
-    public void cargarPacientesPalindromos(){
-        Collection<Paciente> pacientesPalindromos = hospitalController.obtenerPacientesPalindromos();
-        listPacientes.setAll(pacientesPalindromos);
-    }
-    public void cargarPacientesVocalesRepetidas(){
-        Collection<Paciente> pacientesVocalesRepetidas = hospitalController.obtenerPacientesVocalesRepetidas();
-        listPacientes.setAll(pacientesVocalesRepetidas);
-    }
-
-    public void cargarDoctores(){
-        Collection<Doctor> doctores = hospitalController.obtenerDoctores();
-        listDoctores.setAll(doctores);
-    }
-    public void cargarCitas(){
-        Collection<Cita> citas = hospitalController.obtenerCitas();
-        listCitas.setAll(citas);
-    }
-
-    public Paciente buildPaciente() {
-        return new Paciente(txtNombrePaciente.getText(), txtPacienteId.getText(), datePacienteNacimiento.getValue());
-    }
-    public Doctor buildDoctor() {
-        return new Doctor(txtDoctorNombre.getText(), txtDoctorId.getText(), txtDoctorEspecialidad.getText());
-    }
-    public Reporte buildReporte() {
-        return new Reporte(dateFechaReporte.getValue(), hospitalController.buscarPaciente(txtIdPacienteReporte.getText()),
-                hospitalController.buscarDoctor(txtIdDoctorReporte.getText()), convertirStringALista(txtEnfermedadesReportes.getText()),
-                convertirStringALista(txtMedicamentosReportes.getText()));
-    }
-
-
-    //==========================PACIENTE==========================//
 
     @FXML
     void onBuscarPaciente() {
@@ -209,8 +104,23 @@ public class HospitalViewController {
             cargarPacientes();
         }
     }
-
-    //===========================DOCTOR===========================//
+    //============================DOCTOR==========================//
+    @FXML
+    private TableColumn<Doctor, String> colDoctorEspecialidad;
+    @FXML
+    private TableColumn<Doctor, String> colDoctorId;
+    @FXML
+    private TableColumn<Doctor, String> colDoctorNombre;
+    @FXML
+    private TableView<Doctor> tablaDoctores;
+    @FXML
+    private TextField txtDoctorEspecialidad;
+    @FXML
+    private TextField txtDoctorId;
+    @FXML
+    private TextField txtDoctorNombre;
+    @FXML
+    private TextField txtIdBuscarDoctor;
 
     @FXML
     void onBuscarDoctor() {
@@ -249,7 +159,21 @@ public class HospitalViewController {
 
     }
 
-    //============================CITA============================//
+    //=============================CITA===========================//
+    @FXML
+    private TableColumn<Cita, String> colDoctorCita;
+    @FXML
+    private TableColumn<Cita, LocalDate> colFechaCita;
+    @FXML
+    private TableColumn<Cita, String> colIdPacienteCita;
+    @FXML
+    private TableColumn<Cita, String> colNombrePacienteCita;
+    @FXML
+    private TextField txtCitaDoctorId;
+    @FXML
+    private DatePicker dateCita;
+    @FXML
+    private TableView<Cita> tablaCitas;
 
     @FXML
     void onAgendarCita() {
@@ -262,9 +186,21 @@ public class HospitalViewController {
         hospitalController.cancelarCita(citaSeleccionada);
         cargarCitas();
     }
-
-
     //===========================REPORTE==========================//
+    @FXML
+    private DatePicker dateFechaReporte;
+    @FXML
+    private TextField txtIdDoctorReporte;
+    @FXML
+    private TextField txtIdPacienteReporte;
+    @FXML
+    private TextArea txtEnfermedadesReportes;
+    @FXML
+    private TextArea txtMedicamentosReportes;
+    @FXML
+    private TextField txtIdPacienteEliminarClonar;
+    @FXML
+    public DatePicker dateEliminarClonarReporte;
 
     @FXML
     void onAgregarReporte() {
@@ -282,14 +218,64 @@ public class HospitalViewController {
     void onClonarReporte() {
         hospitalController.clonarReporte(dateEliminarClonarReporte.getValue(), txtIdPacienteEliminarClonar.getText());
     }
+    //======================CONFIGURACION=========================//
+    @FXML
+    private Text txtInfoHospital;
+    @FXML
+    private TextField txtHorarioAtencion;
+    @FXML
+    private TextField txtMaxPacientes;
+    @FXML
+    private TextArea txtReglasFacturacion;
 
     @FXML
-    public void onFechaReporte() {//?????
+    void onGuardarConfiguracion() {
+        hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), convertirStringALista(txtReglasFacturacion.getText()));
+        initDataBinding();
+        mostrarConfiguracion();
+    }
+    void mostrarConfiguracion(){
+        txtInfoHospital.setText(hospitalController.configuracionActual());
+    }
+
+    //============================LISTAS Y BUILDS==========================//
+    public void cargarPacientes(){
+        Collection<Paciente> pacientes = hospitalController.obtenerPacientes();
+        listPacientes.setAll(pacientes);
+
+    }
+    public void cargarPacientesPalindromos(){
+        Collection<Paciente> pacientesPalindromos = hospitalController.obtenerPacientesPalindromos();
+        listPacientes.setAll(pacientesPalindromos);
+    }
+    public void cargarPacientesVocalesRepetidas(){
+        Collection<Paciente> pacientesVocalesRepetidas = hospitalController.obtenerPacientesVocalesRepetidas();
+        listPacientes.setAll(pacientesVocalesRepetidas);
+    }
+
+    public void cargarDoctores(){
+        Collection<Doctor> doctores = hospitalController.obtenerDoctores();
+        listDoctores.setAll(doctores);
+    }
+    public void cargarCitas(){
+        Collection<Cita> citas = hospitalController.obtenerCitas();
+        listCitas.setAll(citas);
+    }
+
+    public Paciente buildPaciente() {
+        return new Paciente(txtNombrePaciente.getText(), txtPacienteId.getText(), datePacienteNacimiento.getValue());
+    }
+    public Doctor buildDoctor() {
+        return new Doctor(txtDoctorNombre.getText(), txtDoctorId.getText(), txtDoctorEspecialidad.getText());
+    }
+    public Reporte buildReporte() {
+        return new Reporte(dateFechaReporte.getValue(), hospitalController.buscarPaciente(txtIdPacienteReporte.getText()),
+                hospitalController.buscarDoctor(txtIdDoctorReporte.getText()), convertirStringALista(txtEnfermedadesReportes.getText()),
+                convertirStringALista(txtMedicamentosReportes.getText()));
     }
 
 
-
-    //=============================EXTRA==========================//
+    //========================================================================================//
     @FXML
     void onRecargarListaPacientes() {
         cargarPacientes();
@@ -305,20 +291,6 @@ public class HospitalViewController {
         cargarPacientesVocalesRepetidas();
     }
 
-    //========================CONFIGURACION=======================//
-
-    @FXML
-    void onGuardarConfiguracion() {
-        hospitalController.guardarConfiguracionHospital(txtHorarioAtencion.getText(), txtMaxPacientes.getText(), convertirStringALista(txtReglasFacturacion.getText()));
-        initDataBinding();
-        mostrarConfiguracion();
-    }
-    void mostrarConfiguracion(){
-        txtInfoHospital.setText(hospitalController.configuracionActual());
-    }
-    //mostrar config
-
-    //=====================OTRO=====================//
 
     /**
      * Metodo para convertir una String a una lista de strings cortandolo desde un ";"
@@ -385,23 +357,19 @@ public class HospitalViewController {
     }
 
     private void initDataBinding() {
-        // Enlaces para la tabla de pacientes
         colPacienteId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         colPacienteNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         colPacienteEdad.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calcularEdad()));
 
-        // Enlaces para la tabla de doctores
         colDoctorId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         colDoctorNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         colDoctorEspecialidad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEspecialidad()));
 
-        // Enlaces para la tabla de citas
         colFechaCita.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFecha()));
         colIdPacienteCita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPaciente().getId()));
         colNombrePacienteCita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPaciente().getNombre()));
         colDoctorCita.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDoctor().getNombre()));
 
-        // Puedes agregar más enlaces para otros controles según sea necesario
     }
 
 }

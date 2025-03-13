@@ -14,9 +14,11 @@ public class Hospital {
     private String id;
 
     /**
-     * Constructor público de la clase Hospital
-     * @param nombre Nombre del hospital
+     * Constructor de Hospital que inicializa su nombre y gestiona listas de doctores y pacientes
+     *
+     * @param nombre el nombre del hospital
      */
+
     public Hospital(String nombre) {
         this.nombre = nombre;
         doctores = new LinkedList<>();
@@ -28,11 +30,13 @@ public class Hospital {
     //---------------------CRUD Paciente-------------------------//
 
     /**
-     * Metodo para buscar un paciente por su id.
+     * Busca un paciente en la lista de pacientes del hospital por su ID
      *
-     * @param id Id del paciente a buscar.
-     * @return paciente encontrado o null si no existe.
+     * @param id el identificador único del paciente
+     * @return el paciente encontrado o null si no existe
+     * @throws IllegalArgumentException si el ID es nulo
      */
+
     public Paciente buscarPaciente(String id) {
         if (id == null) {
             throw new IllegalArgumentException("El id no puede ser nulo.");
@@ -48,10 +52,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para agregar un nuevo paciente.
+     * Agrega un nuevo paciente a la lista del hospital si no está registrado previamente
      *
-     * @param paciente Paciente a agregar.
+     * @param paciente el paciente a agregar
+     * @throws IllegalArgumentException si el paciente es nulo
      */
+
     public void agregarPaciente(Paciente paciente) {
         if (paciente == null) {
             throw new IllegalArgumentException("No se ingresó el paciente que se desea agregar.");
@@ -67,11 +73,13 @@ public class Hospital {
     }
 
     /**
-     * Metodo para actualizar los datos de un paciente.
+     * Actualiza la información de un paciente existente en el hospital
      *
-     * @param id          Id del paciente a actualizar.
-     * @param actualizado Paciente con los nuevos datos.
+     * @param id         el identificador del paciente a actualizar
+     * @param actualizado el objeto Paciente con los datos actualizados
+     * @throws IllegalArgumentException si los datos del paciente actualizado son nulos
      */
+
     public void actualizarPaciente(String id, Paciente actualizado) {
         if (actualizado == null) {
             throw new IllegalArgumentException("Los datos del paciente actualizado no pueden ser nulos.");
@@ -88,10 +96,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para eliminar un paciente.
+     * Elimina un paciente de la lista del hospital si existe
      *
-     * @param id Id del paciente a eliminar.
+     * @param id el identificador del paciente a eliminar
+     * @throws IllegalArgumentException si el ID es nulo
      */
+
     public void eliminarPaciente(String id) {
         if (id == null) {
             throw new IllegalArgumentException("El id no puede ser nulo.");
@@ -106,21 +116,29 @@ public class Hospital {
         }
     }
 
+    /**
+     * Obtiene el historial médico de un paciente registrado en el hospital
+     *
+     * @param id el identificador del paciente
+     * @return una cadena con el historial médico del paciente
+     */
+
     public String historialPaciente(String id) {
         Paciente paciente = buscarPaciente(id);
         return paciente.obtenerHistorialMedico();
 
     }
-    //----------------------------------------------------------//
 
     //----------------------CRUD Doctor-------------------------//
 
     /**
-     * Metodo para buscar un doctor por su id.
+     * Busca un doctor en la lista de doctores del hospital por su ID
      *
-     * @param id Id del doctor a buscar.
-     * @return doctor Doctor encontrado o null si no existe.
+     * @param id el identificador único del doctor
+     * @return el doctor encontrado o null si no existe
+     * @throws IllegalArgumentException si el ID es nulo
      */
+
     public Doctor buscarDoctor(String id) {
         if (id == null) {
             throw new IllegalArgumentException("El id no puede ser nulo.");
@@ -136,10 +154,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para agregar un nuevo doctor.
+     * Agrega un nuevo doctor a la lista del hospital si no está registrado previamente
      *
-     * @param doctor Doctor a agregar.
+     * @param doctor el doctor a agregar
+     * @throws IllegalArgumentException si el doctor es nulo
      */
+
     public void agregarDoctor(Doctor doctor) {
         if (doctor == null) {
             throw new IllegalArgumentException("No se ingresó el doctor que se desea agregar.");
@@ -155,11 +175,13 @@ public class Hospital {
     }
 
     /**
-     * Metodo para actualizar los datos de un doctor.
+     * Actualiza la información de un doctor existente en el hospital
      *
-     * @param id          Id del doctor a actualizar.
-     * @param actualizado Doctor con los nuevos datos.
+     * @param id         el identificador del doctor a actualizar
+     * @param actualizado el objeto Doctor con los datos actualizados
+     * @throws IllegalArgumentException si los datos del doctor actualizado son nulos
      */
+
     public void actualizarDoctor(String id, Doctor actualizado) {
         if (actualizado == null) {
             throw new IllegalArgumentException("Los datos del doctor actualizado no pueden ser nulos.");
@@ -176,10 +198,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para eliminar un doctor.
+     * Elimina un doctor de la lista del hospital si existe
      *
-     * @param id Id del doctor a eliminar.
+     * @param id el identificador del doctor a eliminar
+     * @throws IllegalArgumentException si el ID es nulo
      */
+
     public void eliminarDoctor(String id) {
         if (id == null) {
             throw new IllegalArgumentException("El id no puede ser nulo.");
@@ -193,16 +217,19 @@ public class Hospital {
             System.out.println("No existe un doctor con el id ingresado.");
         }
     }
-    //----------------------------------------------------------//
 
     //-------------------------Reporte--------------------------//
 
     /**
-     * Método para buscar un reporte dada la fecha y el Id del paciente asociado
-     * @param fechaConsulta Fecha en que se generó el reporte
-     * @param idPaciente Id del paciente asociado al reporte
-     * @return Reporte encontrado
+     * Busca un reporte médico en el historial de un paciente por fecha de consulta e ID del paciente
+     *
+     * @param fechaConsulta la fecha en que se generó el reporte
+     * @param idPaciente el identificador del paciente asociado al reporte
+     * @return el reporte encontrado
+     * @throws IllegalArgumentException si la fecha o el ID del paciente son nulos
+     * @throws NoSuchElementException si no se encuentra el paciente o el reporte
      */
+
     public Reporte buscarReporte(LocalDate fechaConsulta, String idPaciente) {
         if (fechaConsulta == null || idPaciente == null) {
             throw new IllegalArgumentException("No se ingresaron datos para la búsqueda.");
@@ -222,10 +249,13 @@ public class Hospital {
     }
 
     /**
-     * Método para agregar un reporte al historial de un paciente
-     * @param reporte Reporte a añadir
-     * @param idPaciente Id del paciente a quien va dirigido
+     * Agrega un reporte médico al historial de un paciente
+     *
+     * @param reporte el reporte a añadir
+     * @param idPaciente el identificador del paciente al que se asociará el reporte
+     * @throws IllegalArgumentException si el reporte o el paciente son nulos
      */
+
     public void agregarReporteAHistorial(Reporte reporte, String idPaciente) {
         Paciente paciente = buscarPaciente(idPaciente);
         if(paciente == null || reporte == null) {
@@ -235,11 +265,14 @@ public class Hospital {
     }
 
     /**
-     * Método para eliminar un reporte del historial de un paciente
-     * dada la fecha del reporte y el id del paciente asociado
-     * @param fechaConsulta Fecha en que se generó el reporte
-     * @param idPaciente Id del paciente asociado al reporte@param fechaConsulta
+     * Elimina un reporte del historial de un paciente usando la fecha de consulta y el ID del paciente
+     *
+     * @param fechaConsulta la fecha en que se generó el reporte
+     * @param idPaciente el identificador del paciente asociado al reporte
+     * @throws IllegalArgumentException si la fecha o el ID del paciente son nulos
+     * @throws NoSuchElementException si no se encuentra el reporte
      */
+
     public void eliminarReporteDelHistorial(LocalDate fechaConsulta, String idPaciente) {
         if (fechaConsulta == null || idPaciente == null) {
             throw new IllegalArgumentException("No se ingresaron datos para la búsqueda.");
@@ -250,14 +283,14 @@ public class Hospital {
 
     }
 
-    //----------------------------------------------------------//
-
     //------------------Métodos adicionales---------------------//
 
     /**
-     * Metodo para obtener una lista con nombres palíndromos de la lista de pacientes.
-     * @return palindromos Lista de nombres palíndromos de entre los pacientes.
+     * Obtiene una lista de pacientes cuyos nombres sin apellido son palíndromos
+     *
+     * @return una lista de pacientes con nombres palíndromos
      */
+
     public LinkedList<Paciente> obtenerPacientesNombresPalindromos(){
 
         LinkedList<Paciente> palindromos = new LinkedList<>();
@@ -273,10 +306,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para determinar si un nombre es palíndromo o no.
-     * @param nombre Nombre del paciente.
-     * @return true si es palíndromo, false si no lo es.
+     * Determina si un nombre es un palíndromo
+     *
+     * @param nombre el nombre a evaluar
+     * @return true si el nombre es un palíndromo, false en caso contrario
      */
+
     public boolean esPalindromo(String nombre){
         int i = 0;
         int j = nombre.length() - 1;
@@ -291,9 +326,11 @@ public class Hospital {
     }
 
     /**
-     * Metodo para obtener una lista de nombres con dos vocales iguales de la lista de pacientes.
-     * @return vocalesIguales Lista de nombres con dos vocales iguales de entre los pacientes.
+     * Obtiene una lista de pacientes cuyos nombres sin apellido contienen al menos dos vocales iguales
+     *
+     * @return una lista de pacientes con nombres que cumplen la condición
      */
+
     public LinkedList<Paciente> obtenerPacientesNombreDosVocalesIguales(){
 
         LinkedList<Paciente> vocalesIguales = new LinkedList<>();
@@ -309,10 +346,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para determinar si un nombre tiene dos vocales iguales
-     * @param nombre Nombre del paciente.
-     * @return true si contiene una vocal repetida, false si no.
+     * Determina si un nombre contiene al menos dos vocales iguales
+     *
+     * @param nombre el nombre a evaluar
+     * @return true si el nombre contiene una vocal repetida, false en caso contrario
      */
+
     public boolean nombreDosVocalesIguales(String nombre){
         nombre = nombre.toLowerCase();
         for (int i = 0; i < nombre.length(); i++) {
@@ -333,9 +372,12 @@ public class Hospital {
     }
 
     /**
-     * Metodo para determinar una letra es vocal
-     * @return true
+     * Determina si un carácter es una vocal
+     *
+     * @param letra el carácter a evaluar
+     * @return true si es una vocal, false en caso contrario
      */
+
     public boolean esVocal(char letra){
         return letra == 'a' || letra == 'e' || letra == 'i' || letra == 'o' || letra == 'u';
     }

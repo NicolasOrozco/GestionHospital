@@ -8,20 +8,23 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.gestionhospital.model.*;
-import co.edu.uniquindio.poo.gestionhospital.viewController.*;
 
+/**
+ * Clase principal de la aplicación hospitalaria que extiende Application de JavaFX
+ * Se encarga de inicializar la aplicación, cargar datos de prueba y lanzar la interfaz gráfica
+ */
 public class HospitalApp extends Application {
 
     public static Hospital hospital = new Hospital("Cosmitet");
 
     /**
-     * Metodo que inicializa datos de prueba en el hospital.
+     * Inicializa datos de prueba en el hospital, agregando pacientes y doctores predefinidos
      */
     @Override
     public void init() {
 
          Paciente paciente = new Paciente("Carlos Valencia", "P-001", LocalDate.of(2000, 1, 1));
-         Paciente paciente1 = new Paciente("Hernesto Cortez", "P-002", LocalDate.of(2006, 4, 12));
+         Paciente paciente1 = new Paciente("Ernesto Cortez", "P-002", LocalDate.of(2006, 4, 12));
          Paciente paciente2 = new Paciente("Julia Flores", "P-003", LocalDate.of(1999, 7, 19));
          Paciente paciente3 = new Paciente("Ana Carolina Martinez", "P-004", LocalDate.of(1989, 3, 27));
         Paciente paciente4 = new Paciente("Cristobal Colon", "P-005", LocalDate.of(1960, 2, 27));
@@ -41,6 +44,12 @@ public class HospitalApp extends Application {
 
     }
 
+    /**
+     * Inicia la aplicación cargando la vista principal de la interfaz gráfica.
+     *
+     * @param stage el escenario principal de la aplicación
+     * @throws IOException si hay un error al cargar la vista FXML
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/HospitalView.fxml"));
@@ -50,6 +59,11 @@ public class HospitalApp extends Application {
         stage.show();
     }
 
+    /**
+     * Método principal que inicia la aplicación JavaFX
+     *
+     * @param args argumentos de la línea de comandos
+     */
     public static void main(String[] args) {
         launch(args);
     }

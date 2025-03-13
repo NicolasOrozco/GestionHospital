@@ -8,7 +8,8 @@ public class Doctor extends Persona {
     private LinkedList<Cita> citas;
 
     /**
-     * Método constructor de la clase Doctor
+     * Constructor de la clase Doctor
+     *
      * @param nombre Nombre del doctor
      * @param id Número de identificación del doctor
      * @param especialidad Especialidad del doctor
